@@ -1,0 +1,33 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM VOTRE COMMENTAIRE 
+ 
+REM SEBASTIEN ORANGE 92260
+REM Azy FREE 75010
+REM Anais SFR 93440
+REM Tiago Bouygues 78700 
+ 
+REM Sebastien habites le 92260 et est chez Orange
+REM Azy habites le 75010 et est chez Free
+REM Anais habites le 93440 et est chez SFR
+REM Tiago  habites le 78700 et est chez Bouygues
+
+
+FOR /F "delims=; tokens=1-3" %%a in (liste.txt) do (
+echo %%a habites
+
+) 
+
+
+
+
+
+
+
+
+
+
+
+pause 

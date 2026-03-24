@@ -1,0 +1,14 @@
+@echo off
+
+REM create by Pascal
+REM date 27 octobre 2025
+REM  CREER 2 VARIABLES formation et module
+REM en utilisant ces 2 variables
+REM afficher à l'ecran
+REM je suis en TSSR module Microsoft
+
+set formation=TSSR
+set module=Microsoft
+echo je suis en %formation% module %module%
+
+pause

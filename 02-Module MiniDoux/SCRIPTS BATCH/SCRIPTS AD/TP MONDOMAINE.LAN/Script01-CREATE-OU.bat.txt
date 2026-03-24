@@ -1,0 +1,23 @@
+@echo off
+
+SETLOCAL ENABLEDELAYEDEXPANSION 
+
+REM mondomaine.lan
+set domaine=mondomaine
+set extension=lan
+
+REM ABORESCENCE OU
+REM @mondomaine-lan
+REM		SERVICES
+REM 		atelier
+REM 		commercial
+REM			informatique
+REM		groupe
+
+dsadd ou ou=@mondomaine-lan,dc=%domaine%,dc=%extension%
+dsadd ou ou=services,ou=@mondomaine-lan,dc=%domaine%,dc=%extension%
+dsadd ou ou=groupe,ou=@mondomaine-lan,dc=%domaine%,dc=%extension%
+dsadd ou ou=atelier,ou=services,ou=@mondomaine-lan,dc=%domaine%,dc=%extension%
+dsadd ou ou=commercial,ou=services,ou=@mondomaine-lan,dc=%domaine%,dc=%extension%
+dsadd ou ou=informatique,ou=services,ou=@mondomaine-lan,dc=%domaine%,dc=%extension%
+pause

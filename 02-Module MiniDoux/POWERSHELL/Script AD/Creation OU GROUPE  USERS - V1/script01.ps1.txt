@@ -1,0 +1,29 @@
+# Import du module Active Directory
+Import-Module ActiveDirectory
+
+# Demande du nom de domaine et de l'extension
+$domainName = Read-Host "Entrez le nom de votre domaine (par exemple, tssr)"
+$domainExtension = Read-Host "Entrez l'extension de votre domaine (par exemple, labo)"
+
+# Nom dynamique pour l'OU principal
+$mainOUName = "@$domainName"
+
+# Construction du chemin du domaine
+$domainPath = "DC=$domainName,DC=$domainExtension"
+
+# Création des OUs
+New-ADOrganizationalUnit -Name $mainOUName -Path $domainPath
+New-ADOrganizationalUnit -Name "Services" -Path "OU=$mainOUName,$domainPath"
+New-ADOrganizationalUnit -Name "Groupes" -Path "OU=$mainOUName,$domainPath"
+New-ADOrganizationalUnit -Name "Informatique" -Path "OU=Services,OU=$mainOUName,$domainPath"
+New-ADOrganizationalUnit -Name "Rh" -Path "OU=Services,OU=$mainOUName,$domainPath"
+New-ADOrganizationalUnit -Name "Support" -Path "OU=Services,OU=$mainOUName,$domainPath"
+
+# Création des groupes globaux
+New-ADGroup -Name "g_informatique" -GroupScope Global -Path "OU=Groupes,OU=$mainOUName,$domainPath"
+New-ADGroup -Name "g_direction" -GroupScope Global -Path "OU=Groupes,OU=$mainOUName,$domainPath"
+New-ADGroup -Name "g_support" -GroupScope Global -Path "OU=Groupes,OU=$mainOUName,$domainPath"
+New-ADGroup -Name "g_rh" -GroupScope Global -Path "OU=Groupes,OU=$mainOUName,$domainPath"
+
+Write-Host "Création des OUs et des groupes terminée pour le domaine $domainName.$domainExtension"
+cls

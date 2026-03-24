@@ -1,0 +1,20 @@
+@echo off
+
+REM create by Pascal
+REM date 27 octobre 2025
+REM  LES CALCULS
+
+set /a adition=5+5
+echo 5 + 5 = %adition%
+
+set /a soust=55-5
+echo 55 - 5 = %soust%
+
+set /a multi=5*5
+echo 5 x 5 = %multi%
+
+set /a division=55/5
+echo 55 / 5 = %division%
+
+
+pause

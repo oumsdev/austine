@@ -1,0 +1,16 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM VOTRE COMMENTAIRE 
+ 
+:flag1 
+set /a compteur=%compteur% + 1
+
+if %compteur% LEQ 10 (
+echo ligne %compteur%
+goto flag1
+) 
+
+
+pause 

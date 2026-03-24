@@ -1,0 +1,14 @@
+@echo off
+
+REM create by Pascal
+REM date 27 octobre 2025
+REM  VARIABLES ENVIRONEMENT
+
+REM 27/10/2025
+REM 0123456789
+
+echo nous sommes le %DATE%
+echo nous sommes en %DATE:~6,4%
+echo nous sommes le jour %DATE:~0,2%
+echo nous sommes le mois numero  %DATE:~3,2%
+pause

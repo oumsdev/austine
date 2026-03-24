@@ -1,0 +1,12 @@
+@echo off
+
+REM create by Pascal
+REM date 27 octobre 2025
+REM Faire un script qui demande le nom et prenom de  
+REM l'utilisateur et qui affiche ses initiales 
+
+set /p prenom=Veuillez saisir votre prenom : 
+set /p nom=Veuillez saisir votre nom : 
+
+echo Bonjour %prenom% %nom% , tes initiales sont : %prenom:~0,1%%nom:~0,1%
+pause

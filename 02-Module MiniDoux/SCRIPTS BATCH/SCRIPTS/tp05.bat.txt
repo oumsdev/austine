@@ -1,0 +1,20 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM VOTRE COMMENTAIRE 
+ 
+REM SUMMERS;Buffy;bsummers;yy94le!;membres
+
+REM Buffy SUMMERS , doit se logguer avec bsummers en tant que membres
+
+FOR /F "delims=; tokens=1,2,3,5" %%a in (users.txt) do (
+echo %%b %%a , doit se logguer avec %%c en tant que %%d
+)
+
+
+FOR /F "delims=; tokens=1-5" %%a in (users.txt) do (
+echo %%b %%a , doit se logguer avec %%c en tant que %%e
+)
+
+pause 

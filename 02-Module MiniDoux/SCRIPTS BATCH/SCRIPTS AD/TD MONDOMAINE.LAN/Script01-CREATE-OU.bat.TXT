@@ -1,0 +1,26 @@
+@echo off
+
+SETLOCAL ENABLEDELAYEDEXPANSION 
+
+REM mondomaine.lan
+set domaine=mondomaine
+set extension=lan
+
+REM ABORESCENCE OU
+REM @mondomaine
+REM 	comptable
+REM 	production
+REM		informatique
+REM		groupe
+REM			g_groupe
+REM			dl_groupe
+
+dsadd ou ou=@%domaine%,dc=%domaine%,dc=%extension%
+dsadd ou ou=comptable,ou=@%domaine%,dc=%domaine%,dc=%extension%
+dsadd ou ou=production,ou=@%domaine%,dc=%domaine%,dc=%extension%
+dsadd ou ou=informatique,ou=@%domaine%,dc=%domaine%,dc=%extension%
+dsadd ou ou=groupe,ou=@%domaine%,dc=%domaine%,dc=%extension%
+dsadd ou ou=g_groupe,ou=groupe,ou=@%domaine%,dc=%domaine%,dc=%extension%
+dsadd ou ou=dl_groupe,ou=groupe,ou=@%domaine%,dc=%domaine%,dc=%extension%
+
+pause

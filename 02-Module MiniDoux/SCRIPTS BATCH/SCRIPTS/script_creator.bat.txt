@@ -1,0 +1,17 @@
+@echo off
+
+REM create by Pascal
+REM date 27 octobre 2025
+REM  ce script pour creer un script
+
+set /p numero=Veuillez saisir votre numero de script : 
+echo @echo off > script%numero%.bat
+echo. >> script%numero%.bat
+echo REM CREATE BY PASCAL >> script%numero%.bat
+echo REM %date% >> script%numero%.bat
+echo REM VOTRE COMMENTAIRE >> script%numero%.bat
+echo. >> script%numero%.bat
+echo. >> script%numero%.bat
+echo. >> script%numero%.bat
+echo. >> script%numero%.bat
+echo pause >> script%numero%.bat

@@ -1,0 +1,38 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM VOTRE COMMENTAIRE 
+
+set /p age=Veuillez saisir votre age : 
+REM COMPARATEUR
+REM egale = EQU
+REM diffErent = NEQ
+REM superieur = GTR
+REM superieur ou egal = GEQ
+REM inferieur = LSS
+REM inferieur ou egale = LEQ
+
+if %age% GEQ 18 (
+echo tu es majeur
+) else (
+echo tu es mineur
+)
+
+REM bebe 0 et 3 ans
+REM gamin 4 à 12 ans
+REM ado 13 à 19 ans
+REM adulte > 20 ans
+
+if %age% LEQ 3 (
+echo tu es un bebe
+) else if %age% LEQ 12 (
+echo tu es un gamin 
+) else if %age% LEQ  19 (
+echo tu es un ado
+) else (
+echo tu es un adulte
+) 
+
+
+pause 

@@ -1,0 +1,14 @@
+@echo off
+
+REM create by Pascal
+REM date 27 octobre 2025
+REM  CREER 2 VARIABLES formation et module
+REM demander à l'utilisateur de saisir le contenu
+REM afficher à l'ecran
+
+set /p formation=Veuillez saisir votre formation :
+set /p module=Veuillez saisir votre module :
+
+echo je suis en %formation% sur le module %module%
+
+pause

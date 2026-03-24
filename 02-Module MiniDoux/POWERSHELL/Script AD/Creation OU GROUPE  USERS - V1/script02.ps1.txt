@@ -1,0 +1,49 @@
+# Importer le module Active Directory
+Import-Module ActiveDirectory
+
+# Définir les variables
+$domaine = "tssr"
+$extension = "labo"
+
+# Lire le fichier CSV
+$users = Import-Csv -Path "users.csv" -Delimiter ";"
+
+foreach ($user in $users) {
+    $prenom = $user.PRENOM
+    $nom = $user.NOM
+    $login = $user.LOGIN
+    $password = $user.PASSWORD
+    $ou = $user.OU
+    $groupe1 = $user.GROUPE1
+    $groupe2 = $user.GROUPE2
+
+    # Construire le chemin de l'OU
+    $distinguishedName = "OU=$ou,OU=Services,OU=@$domaine,DC=$domaine,DC=$extension"
+
+    # Construire le chemin du groupe principal
+    $groupe1Path = "CN=$groupe1,OU=groupes,OU=@$domaine,DC=$domaine,DC=$extension"
+
+    # Initialiser les groupes auxquels l'utilisateur appartient
+    $memberOf = @($groupe1Path)
+
+    # Ajouter le groupe secondaire s'il n'est pas "vide"
+    if ($groupe2 -ne "vide") {
+        $groupe2Path = "CN=$groupe2,OU=groupes,OU=@$domaine,DC=$domaine,DC=$extension"
+        $memberOf += $groupe2Path
+    }
+
+    # Créer l'utilisateur
+    New-ADUser `
+        -Name "$prenom $nom" `
+        -GivenName "$prenom" `
+        -Surname "$nom" `
+        -SamAccountName "$login" `
+        -UserPrincipalName "$login@$domaine.$extension" `
+        -AccountPassword (ConvertTo-SecureString "$password" -AsPlainText -Force) `
+        -Enabled $true `
+        -PasswordNeverExpires $true `
+        -CannotChangePassword $true `
+        -DisplayName "$prenom $nom" `
+        -Path "$distinguishedName" `
+        -PassThru | Add-ADPrincipalGroupMembership -MemberOf $memberOf
+}

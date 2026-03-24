@@ -1,0 +1,11 @@
+@echo off
+
+REM create by Pascal
+REM date 27 octobre 2025
+REM DEMANDER à L UTILISATEUR UNE ADRESSE IP
+REM puis faire un ping de cette adresse ip
+
+set /p adresse=Veuillez saisir une adresse ip
+ping %adresse%
+
+pause

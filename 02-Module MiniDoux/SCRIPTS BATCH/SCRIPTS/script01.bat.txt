@@ -1,0 +1,11 @@
+@echo off
+
+REM create by Pascal
+REM date 27 octobre 2025
+REM  LES VARIABLES
+
+set prenom=Pascal
+set ville=Paris
+
+echo bonjour %prenom%, tu habites %ville%
+pause

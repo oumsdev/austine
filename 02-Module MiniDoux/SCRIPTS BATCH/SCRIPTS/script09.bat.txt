@@ -1,0 +1,19 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM VOTRE COMMENTAIRE 
+ 
+set /p adresse=Veuillez saisir une adresse ip 
+
+ping %adresse% 
+ 
+if %errorlevel% EQU  0 (
+ECHO ***********************
+echo * la commande ping OK *
+echo ***********************
+) else (
+echo la commande ping PAS OK
+)
+
+pause 

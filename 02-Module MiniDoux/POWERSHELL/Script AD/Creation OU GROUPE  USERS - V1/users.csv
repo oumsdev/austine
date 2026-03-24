@@ -1,0 +1,11 @@
+PRENOM;NOM;LOGIN;PASSWORD;OU;GROUPE1;GROUPE2
+Alex;TERRIEUR;aterrieur;Reponse2024;support;g_support;g_direction
+Samantha;LOT;slot;Reponse2024;support;g_support;vide
+Jean;EMARE;jemare;Reponse2024;informatique;g_informatique;vide
+Annie;VERSAIRE;aversaire;Reponse2024;informatique;g_informatique;g_direction
+Barack;AFRIT;bafrit;Reponse2024;rh;g_rh;vide
+Tom;HAT;that;Reponse2024;rh;g_rh;g_direction
+Roméo;LAVELINGE;rlavelinge;Reponse2024;rh;g_rh;vide
+Nadine;GRE;ngre;Reponse2024;rh;g_rh;g_direction
+Laure;LOGE;lloge;Reponse2024;rh;g_rh;vide
+Guy;TARE;gtare;Reponse2024;informatique;g_informatique;vide

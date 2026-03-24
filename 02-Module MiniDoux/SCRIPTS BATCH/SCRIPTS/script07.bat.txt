@@ -1,0 +1,13 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM Horloge a 350 euros sur Microsoft Store
+ 
+:flag1
+echo %time:~0,5%
+timeout /T 2 > NUL
+cls 
+goto flag1
+ 
+pause 

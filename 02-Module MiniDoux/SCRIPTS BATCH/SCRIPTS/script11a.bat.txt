@@ -1,0 +1,34 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM VOTRE COMMENTAIRE 
+
+echo AVEC ETIQUETTE
+:flag1
+set /a compteur=%compteur% + 1 
+echo ligne %compteur%
+if %compteur% LEQ 9 (
+goto flag1
+)
+echo.
+echo AVEC FOR
+for /L %%a in (1,1,10) do echo ligne %%a
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+pause 

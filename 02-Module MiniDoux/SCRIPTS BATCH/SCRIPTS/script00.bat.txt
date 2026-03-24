@@ -1,0 +1,13 @@
+@echo off
+
+REM create by Pascal
+REM date 27 octobre 2025
+REM  ce script affiche 3 phrases
+
+echo Bonjour tout le monde !!
+echo ceci est mon premier script
+echo.
+echo c'est la fin du script
+
+
+pause

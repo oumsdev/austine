@@ -1,0 +1,22 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM VOTRE COMMENTAIRE 
+
+
+SETLOCAL ENABLEDELAYEDEXPANSION 
+ 
+
+
+FOR /F "delims=; tokens=1-5" %%a in (users.txt) do (
+
+set status=%%e
+
+if /i !status! EQU ca (
+echo %%b %%a , doit se logguer avec %%c en tant que %%e
+)
+
+)
+ 
+pause 

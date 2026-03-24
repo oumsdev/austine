@@ -1,0 +1,12 @@
+@echo off
+
+REM create by Pascal
+REM date 27 octobre 2025
+REM  VARIABLES ENVIRONEMENT
+
+echo bonjour %USERNAME% , nous sommes le %DATE%
+echo il est %TIME%
+echo ce PC se nomme : %COMPUTERNAME%
+
+
+pause

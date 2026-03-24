@@ -1,0 +1,24 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM VOTRE COMMENTAIRE 
+
+
+SETLOCAL ENABLEDELAYEDEXPANSION 
+ 
+set /p lettre=Veuillez saisir la premiere lettre du nom : 
+
+FOR /F "delims=; tokens=1-5" %%a in (users.txt) do (
+
+set nom=%%a
+set lettrenom=!nom:~0,1!
+
+if /i !lettrenom! EQU !lettre! (
+echo %%b %%a , doit se logguer avec %%c en tant que %%e
+)
+
+
+)
+ 
+pause 

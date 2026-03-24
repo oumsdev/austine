@@ -1,0 +1,24 @@
+@echo off
+
+SETLOCAL ENABLEDELAYEDEXPANSION 
+
+REM mondomaine.lan
+set domaine=mondomaine
+set extension=lan
+
+REM LISTE DES GROUPES
+REM g_direction
+REM g_rp
+REM g_production
+REM g_informatique
+REM g_comptable
+
+REM ETAPE 02
+REM CREATION DES GROUPES
+dsadd group cn=g_direction,ou=g_groupe,ou=groupe,ou=@%domaine%,dc=%domaine%,dc=%extension% -scope g
+dsadd group cn=g_rp,ou=g_groupe,ou=groupe,ou=@%domaine%,dc=%domaine%,dc=%extension% -scope g
+dsadd group cn=g_production,ou=g_groupe,ou=groupe,ou=@%domaine%,dc=%domaine%,dc=%extension% -scope g
+dsadd group cn=g_informatique,ou=g_groupe,ou=groupe,ou=@%domaine%,dc=%domaine%,dc=%extension% -scope g
+dsadd group cn=g_comptable,ou=g_groupe,ou=groupe,ou=@%domaine%,dc=%domaine%,dc=%extension% -scope g
+
+pause

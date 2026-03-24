@@ -1,0 +1,26 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM VOTRE COMMENTAIRE 
+ 
+echo #########################
+echo  1) calculatrice
+echo  2) paint
+echo  3) Packet tracer
+echo ##########################
+
+set /p menu=Veuillez choisir votre application
+REM 1 
+if %menu% EQU 1 (
+start calc.exe
+)
+REM 2
+if %menu% EQU 2 (
+start mspaint.exe
+)
+REM 3
+if %menu% EQU 3 (
+start C:\"Program Files\Cisco Packet Tracer 8.2.2\bin\PacketTracer.exe"
+)
+pause 

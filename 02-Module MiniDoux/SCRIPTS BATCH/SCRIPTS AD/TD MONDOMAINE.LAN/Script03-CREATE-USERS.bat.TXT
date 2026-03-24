@@ -1,0 +1,28 @@
+@echo off
+
+SETLOCAL ENABLEDELAYEDEXPANSION 
+
+REM mondomaine.lan
+set domaine=mondomaine
+set extension=lan
+
+
+REM ETAPE 03
+REM CREATION DES USERS
+REM a = NOM
+REM b = PRENOM
+REM c = OU
+REM d = GROUPE
+REM e = LOGIN
+
+FOR /F "delims=; tokens=1-5 skip=1" %%a in (users-g1.csv) do (
+
+dsadd user "cn=%%b %%a,ou=%%c,ou=@%domaine%,dc=%domaine%,dc=%extension%" ^
+-disabled no -pwd Reponse2025 -mustchpwd no -samid %%e -upn %%e@%domaine%.%extension% -fn %%b ^
+-ln %%a -display "%%b %%a" -pwdneverexpires yes ^
+-memberof "cn=%%d,ou=g_groupe,ou=groupe,ou=@%domaine%,dc=%domaine%,dc=%extension%" 
+
+) 
+
+
+PAUSE

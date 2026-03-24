@@ -1,0 +1,41 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM LANCER LES APPLICATIONS ENTRE 1 et 7
+REM  LE MENU DOIT TOUJOURS ETRE DISPONIBLE POUR L UTILISATEUR  
+REM  0 DOIR FERMER LE MENU
+
+set historique= Historique : 
+:menu
+echo %historique% 
+echo #########################
+echo  1) calculatrice
+echo  2) paint
+echo  3) Packet tracer
+echo  4) Chrome
+echo  5) Edge
+echo  6) Virtualbox
+echo  7) Terminal
+echo  0) Fermer le menu
+echo ##########################
+
+set /p menu=Veuillez choisir votre application : 
+ 
+if %menu% EQU 1 (
+start calc.exe
+set historique=%historique% / CALCULATRICE
+)
+if %menu% EQU 2 (
+start mspaint.exe
+set historique=%historique% / MSPAINT
+)
+if %menu% EQU 3 (
+start C:\"Program Files\Cisco Packet Tracer 8.2.2\bin\PacketTracer.exe"
+)
+if %menu% EQU 0 (
+exit
+)
+cls
+goto menu
+pause 

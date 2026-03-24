@@ -1,0 +1,12 @@
+@echo off 
+ 
+REM CREATE BY PASCAL 
+REM 28/10/2025 
+REM boucle infini 
+ 
+:flag1
+set /a compteur=%compteur% +1
+ echo Ligne %compteur%  : Repeat after me
+ goto flag1
+ 
+pause 
