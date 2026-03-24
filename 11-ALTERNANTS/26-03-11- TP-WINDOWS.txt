@@ -1,0 +1,149 @@
+ISO 2022
+https://www.swisstransfer.com/d/663dfee4-044e-4b7c-8e09-542a3f41bf48
+
+RESEAU
+Créer les VLANs Suivant
+Attribuer pour chaque VLAN 2 ports de votre choix sur votre Switch en mode access
+
+VLAN 99 => Serveurs
+Reseau 192.168.99.0/24
+GW = 192.168.99.254
+DNS = 192.168.99.241/24
+
+VLAN 11 => Salle A1
+Reseau 192.168.11.0/24
+GW = 192.168.11.254
+DNS = 192.168.99.241/24
+VLAN 12 => Salle A2
+Reseau 192.168.12.0/24
+DNS = 192.168.99.241/24
+
+VLAN 13 => Salle A3
+Reseau 192.168.13.0/24
+GW = 192.168.13.254
+DNS = 192.168.99.241/24
+
+VLAN 21 => Salle B1
+Reseau 192.168.21.0/24
+GW = 192.168.21.254
+DNS = 192.168.99.241/24
+
+VLAN 22 => Salle B2
+Reseau 192.168.22.0/24
+GW = 192.168.22.254
+DNS = 192.168.99.241/24
+
+Trunk : 1 port vers votre routeur
+
+Le routeur doit faire le routage InterVan sur son port FA0/0 (nat inside)
+Et permettre l'acces à Internet via son port Fa0/1 (nat outside)
+Le port FA0/1 doit recevoir une IP via DHCP par la connexion du Greta
+Activer PAT
+
+SYSTEME
+
+Créer le domaine Greta92.local sur un serveur 2022
+Mot de passe Unique (comme d'habitude)
+Adresse IP = 192.168.99.241/24
+GW = 192.168.99.254/24
+DNS = 192.168.99.241/24
+
+Arborescence AD
+
+Vos Unites d'organisations
+
+
+@malraux
+|
+|==>SALLE A1
+| |
+| |=>Ordinateurs
+| |
+|==>SALLE A2
+| |
+| |=>Ordinateurs
+| ||==>SALLE A3
+| |
+| |=>Ordinateurs
+| |
+|==>SALLE B1
+| |
+| |=>Ordinateurs
+| |
+|==>SALLE B2
+| |
+| |=>Ordinateurs
+| |
+|==>GROUPES
+| |
+| |=>DL
+|
+
+Créer 3 utilisateurs dans les OU A1 - A2 - A3 - B1 - B2
+
+Créer les groupes g_formateurs / g_25cam04 / g_25cam05 / g_25cam06 / G_25CAM07 /G_25CAM08
+
+Ajouter 1 utilisateur de chaque OU dans le g_formateurs
+Ajouter les 3 utilisateurs de A1 dans g_25cam05
+Ajouter les 3 utilisateurs de A2 dans g_25cam06
+Ajouter les 3 utilisateurs de A3 dans g_25cam07
+
+Ajouter les 3 utilisateurs de B1 dans g_25cam04
+Ajouter les 3 utilisateurs de B2 dans g_25cam08
+Créer sur la partition D: un Dossier "Ressources"
+
+Puis Créer et partager les dossiers
+"d:\Ressources\A1" Accessible en lecture seul pour le groupe g_25cam05 et en modification pour le groupe g_formateurs (Lettre G:)
+
+"d:\Ressources\A2" Accessible en lecture seul pour le groupe g_25cam06 et en modification pour le groupe g_formateurs (Lettre H:)
+
+"d:\Ressources\A3" Accessible en lecture seul pour le groupe g_25cam07 et en modification pour le groupe g_formateurs (Lettre I:)
+
+"d:\Ressources\B1" Accessible en lecture seul pour le groupe g_25cam04 et en modification pour le groupe g_formateurs (Lettre J:)
+
+"d:\Ressources\B2" Accessible en lecture seul pour le groupe g_25cam08 et en modification pour le groupe g_formateurs (Lettre K:)
+
+Vous utiliserez une GPO pour mapper vos dossiers sur le poste client
+
+Vous utiliserez la méthode AGDLP (vous ajouterez les groupes dans OU GROUPES\DL)
+
+Service DHCP
+Ajouter le service DHCP sur votre serveur
+Votre serveur devra distribuer les paramètres adéquate à chacune des SALLEs (voir partie Réseaux)
+
+Service IIS
+Configurer l'intranet du Greta 92 accessible à partir de intranet.greta92.local
+(Configurer votre DNS)
+
+*** GPO Avancé ***
+Créer des GPO
+- Pour ajouter un fond d'écran personnalisé à chaque VLAN
+- Déploiement du logiciel VLC via MSI sur tout les postes
+- Empêcher l’installation de logiciels par l'utilisateur (sauf pour les formateurs): Bloquer les fichiers .exe et .msi
+- Ajouter ce Message à l’ouverture de session des utilisateurs sur les postes clients:
+
+
+Bienvenue au Greta 92
+L’accès à ce poste est réservé aux apprenants et au personnel autorisés.
+Toute utilisation est soumise au règlement intérieur et à la charte informatique du centre.En vous connectant, vous acceptez ces conditions.
+Bonne session de formation.
+
+TP PARTIE 3
+On augmente la difficulté, Vous allez faire des choses non vu en cours...
+Donc recherche internet nécéssaire
+A faire :
+* On vous demande que le site intranet.greta92.local ne soit accessible uniquement
+via HTTPS => https:\\intranet.greta92.local
+Il y 2 méthodes pour le faire ... Une très longue est rébarbatif et une beaucoup plus simple... faites
+votre choix !!
+
+* Afin d'avoir une historicité des fichiers sur la partition Data
+=> mettre en place le cliché instantané
+https://www.it-connect.fr/windows-server-configurer-cliches-instantanes/
+
+* Faire un script Powershell qui génère un rapport de tous les utilisateurs de l'OU @malraux avec les
+informations suivantes
+Nom affiché
+Compte activé/désactivé
+Dernière connexion
+Automatiser ce script pour qu'il s'exécute toutes les 2h
