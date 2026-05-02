@@ -1,0 +1,1581 @@
+Reseau CISCO
+
+03/10/2025
+
+Commande de base Cisco 
+
+!!Passer en mode admin : 
+enable
+!!Passer en mode de configuration :
+Configure Terminal 
+!!Renommer l’equipement :  
+hostname Paris 
+!!Ajouter un mot de passe enable chiffré :  
+enable secret tssr 
+!!Ajouter un mot de passe enable old version IOS :
+enable password simple 
+!!Ajouter un mot de passe telnet : 
+Line vty 0 4
+Password rezo 
+login 
+exit 
+!!Configurer la carte réseau FastEthernet0/1 : 
+interface fastEthernet0/1 
+ip address 192.168.0.254 255.255.255.0 
+no shutdown 
+exit 
+!!Pour desactiver la recherche DNS 
+No ip domain-lookup 
+!!Sauvegarder sa config
+End
+write
+!!Mettre son equipement à l’heure :
+!!En mode enable
+clock set 11:52:00 3 oct 2025 
+!!Pour visualiser la configuration courrante
+Show running-config
+!!Pour lancer une commande en mode enable
+!!dans un autre mode, on peut utiliser la commande do 
+R1(config)#do show running-config 
+
+TP02
+Configurer le routeur 2911 avec les parametres suivant sans passer par le mode setup 
+Nom du routeur = Raoul 
+Mot de passe enable chiffré = cisco 
+Mot de passe Telnet = distance 
+Adresse IP GigabitEthernet0/0 = 10.255.255.254 /8 
+Desactiver la recherche DNS 
+Mettre votre equipement à l'heure 
+
+Switch#conf t 
+Switch(config)#vlan 110 
+Switch(config-vlan)#name jaune 
+Switch(config-vlan)#vlan 120 
+Switch(config-vlan)#name bleu 
+Switch(config-vlan)#vlan 130 
+Switch(config-vlan)#name vert 
+Switch(config-vlan)#do show vlan 
+Switch(config-vlan)#exit 
+Switch(config)#interface range fa0/1 – 8 
+Switch(config-ifrange)#switchport mode access 
+Switch(config-ifrange)#switchport access vlan 110 
+Switch(config-ifrange)#exit 
+Switch(config)#interface range fa0/9 – 16 
+Switch(config-ifrange)#switchport mode access 
+Switch(config-ifrange)#switchport access vlan 120
+Switch(config-ifrange)#exit 
+Switch(config)#interface range fa0/17 – 20 
+Switch(config-ifrange)#switchport mode access 
+Switch(config-ifrange)#switchport access vlan 130  
+Switch(config-ifrange)#do show vlan 
+Switch(config-ifrange)#exit 
+Switch(config)#hostname SW1
+ 
+
+ 
+
+CONFIG SW2
+enable 
+conf t 
+hostname SW2 
+vlan 110 
+name jaune 
+vlan 120 
+name bleu 
+vlan 130 
+name vert 
+exit 
+interface range fa0/1-24 
+switchport mode access 
+exit 
+interface range fa0/1-8 
+switchport access vlan 110 
+exit 
+interface range fa0/9-16 
+switchport access vlan 120 
+exit 
+interface range fa0/17-20 
+switchport access vlan 130 
+exit 
+do write 
+ 
+Sur SWITCH CŒUR 
+Enable 
+Conf t 
+Hostname SwC 
+Vlan 110 
+Name jaune 
+Vlan 120 
+Name bleu 
+Vlan 130 
+Name vert 
+Exit 
+Interface range gi0/1-2 
+Switchport mode trunk 
+Switchport trunk allowed vlan all
+
+
+
+
+
+
+
+
+
+
+
+06/10/2025
+
+Config Switch 01
+ENABLE 
+CONF T
+!! etape00-Nommer le switch
+HOSTNAME SW01 
+!! etape01-Déclaration VLAN
+VLAN 2 
+NAME VLAN_DEUX 
+VLAN 3 
+NAME VLAN_TROIS
+VLAN 4  
+NAME VLAN_QUATRE 
+!! etape02-Affectation interfaces 
+EXIT
+INTERFACE RANGE FA0/1 - 24 
+SWITCHPORT MODE TRUNK 
+SWITCHPORT TRUNK ALLOWED VLAN ALL 
+
+-Config Switch 02 
+ENABLE 
+CONFIG T 
+!! etape00-Nommer le switch 
+HOSTNAME SW02 
+!! etape01-Déclaration VLAN 
+VLAN 2 
+NAME VLAN_DEUX 
+VLAN 4 
+NAME VLAN_QUATRE 
+!! etape02-Affectation interfaces 
+EXIT
+INTERFACE RANGE FA0/1 - 10 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 2 
+INTERFACE RANGE FA0/11 - 20
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 4 
+
+-Config Switch 03
+ENABLE 
+CONFIG T 
+!! etape00-Nommer le switch 
+HOSTNAME SW03 
+!! etape01-Déclaration VLAN 
+VLAN 3 
+NAME VLAN_TROIS 
+VLAN 4 
+NAME VLAN_QUATRE 
+!! etape02-Affectation interfaces 
+EXIT 
+INTERFACE RANGE FA0/1 - 10 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 3 
+INTERFACE RANGE FA0/11 - 20 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 4 
+
+
+SWITCH 0 – SWITCH DU HAUT 
+Enable 
+Conf t 
+Hostname SwCoeur 
+Vlan 99 
+Name gestion 
+Vlan 101 
+Name client 
+Vlan 102 
+Name serveur 
+Vlan 103 
+Name wifi 
+Exit 
+Interface range fa0/1-20 
+Switchport mode trunk 
+Switchport trunk allowed vlan all 
+SWITCH 1 – SWITCH DE GAUCHE 
+Enable 
+Conf t 
+Hostname SwG 
+Vlan 99 
+Name gestion 
+Vlan 101 
+Name client 
+Vlan 102 
+Name serveur 
+Vlan 103 
+Name wifi 
+Exit 
+Interface range fa0/1-20 
+Switchport mode access 
+Switchport access vlan 101 
+Interface fa0/21 
+Switchport mode access 
+Switchport access vlan 103 
+Interface fa0/22 
+Switchport mode access 
+Switchport access vlan 99 
+SWITCH 2 – SWITCH DE DROITE 
+Enable 
+Conf t 
+Hostname Swd 
+Vlan 99 
+Name gestion 
+Vlan 101 
+Name client 
+Vlan 102 
+Name serveur 
+Vlan 103 
+Name wifi 
+Exit 
+Interface range fa0/1-15 
+Switchport mode access 
+Switchport access vlan 101 
+Interface range fa0/16-20 
+Switchport mode access 
+Switchport access vlan 102 
+Interface fa0/21 
+Switchport mode access 
+Switchport access vlan 103 
+Interface fa0/22 
+Switchport mode access 
+Switchport access vlan 99
+
+hostname SWCOEUR 
+VLAN 101 
+NAME CLIENT 
+VLAN 102 
+NAME SERVEUR 
+VLAN 103 
+NAME INVITE 
+VLAN 99 
+NAME GESTION 
+EXIT 
+INTERFACE RANGE FA0/1-20 
+!!On implémente le protocole 802.1q pour trunk 
+switchport trunk encap dot1q 
+switchport mode trunk 
+switchport trunk allowed vlan all 
+!Creation de mes passerelles 
+interface vlan 101 
+ip address 192.168.101.254 255.255.255.0 
+interface vlan 102 
+ip address 192.168.102.254 255.255.255.0 
+interface vlan 103 
+ip address 192.168.103.254 255.255.255.0 
+interface vlan 99 
+ip address 192.168.99.254 255.255.255.0 
+exit 
+!Activer le routage 
+Ip routing
+
+
+
+07/10/2025
+
+Sur Switch ETAGE0 
+Enable 
+Conf t 
+Hosntame ETAGE0 
+ 
+!!CREATION VLAN 110 – 120 - 130 
+VLAN 110 
+NAME PC 
+VLAN 120 
+NAME PORTABLE 
+VLAN 130 
+NAME SERVEUR 
+EXIT 
+ 
+!!AFFECTATION VLAN 130 AU INTERFACE FA0/1 à FA0/10 
+INTERFACE RANGE FA0/1 - 10 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 130 
+ 
+!!AFFECTATION VLAN 120 AU INTERFACE FA0/11 à FA0/20 
+INTERFACE RANGE FA0/11 - 20 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 120 
+ 
+!!TRUNK INTERFACE FA0/24 
+INTERFACE FA0/24 
+SWITCHPORT MODE TRUNK 
+SWITCHPORT TRUNK ALLOWED VLAN ALL 
+ 
+ 
+Sur Switch ETAGE1 
+Enable 
+Conf t 
+Hosntame ETAGE1 
+ 
+!!CREATION VLAN 110 – 120 - 130 
+VLAN 110 
+NAME PC 
+VLAN 120 
+NAME PORTABLE 
+VLAN 130 
+NAME SERVEUR 
+EXIT 
+ 
+!!AFFECTATION VLAN 110 AU INTERFACE FA0/1 à FA0/10 
+INTERFACE RANGE FA0/1 - 10 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 110 
+ 
+!!AFFECTATION VLAN 130 AU INTERFACE FA0/11 à FA0/20 
+INTERFACE RANGE FA0/11 - 20 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 130 
+ 
+!!TRUNK INTERFACE FA0/23 ET FA0/24 
+INTERFACE RANGE FA0/23 - 24 
+SWITCHPORT MODE TRUNK 
+SWITCHPORT TRUNK ALLOWED VLAN ALL 
+ 
+Sur Switch ETAGE2 
+Enable 
+Conf t 
+Hosntame ETAGE2 
+ 
+!!CREATION VLAN 110 – 120 - 130 
+VLAN 110 
+NAME PC 
+VLAN 120 
+NAME PORTABLE 
+VLAN 130 
+NAME SERVEUR 
+EXIT 
+ 
+!!AFFECTATION VLAN 110 AU INTERFACE FA0/1 à FA0/10 
+INTERFACE RANGE FA0/1 - 10 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 110 
+ 
+!!AFFECTATION VLAN 120 AU INTERFACE FA0/11 à FA0/20 
+INTERFACE RANGE FA0/11 - 20 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 120 
+!!TRUNK INTERFACE FA0/23 
+INTERFACE FA0/23 
+SWITCHPORT MODE TRUNK 
+SWITCHPORT TRUNK ALLOWED VLAN ALL
+
+
+Sur SwCoeur
+Enable 
+Conf t 
+Hostname SwCoeur 
+!!CREATION VLAN 110 – 120 - 130 
+Vlan 110 
+Name PC 
+Vlan 120 
+Name Portable 
+Vlan 130 
+Name Serveur 
+!!TRUNK INTERFACE FA0/24 
+Interface fa0/24 
+Switchport trunk encap dot1q 
+Switchport mode trunk 
+Exit 
+ 
+!!CREATION DES 3 INTERFACES DU SWITCH 
+Interface vlan 110 
+Ip address 192.168.110.254 255.255.255.0 
+Interface vlan 120 
+Ip address 192.168.120.254 255.255.255.0 
+Interface vlan 130 
+Ip address 192.168.130.254 255.255.255.0 
+Exit 
+ 
+!!ACTIVATION ROUTAGE INTER-VLAN 
+Ip routing 
+ 
+ 
+Reinitialisé un commutateur CISCO 
+!!Supprimer le startup-config 
+Write erase 
+!!On supprime la bdd avec les vlan 
+Delete flash:vlan.dat 
+!!On redemarre le commutateur 
+Reload 
+ 
+Routage Inter-vlan avec un routeur 
+ 
+Etape 01 – 
+On relie le routeur au commutateur avec un cable droit 
+Etape 02  
+On trunk sur le commutateur, l’interface relier au routeur 
+Etape 03 
+On allume sur le routeur la carte reseau branché vers le commutateur 
+Exemple 
+Interface fa0/0 
+No shutdown 
+ 
+Etape 04 
+On créer autant de carte reseau virtuel que de vlan 
+!!Pour le vlan 110 
+Interface fa0/0.110 
+Encapsulation dot1q 110 
+Ip address 192.168.110.254 255.255.255.0 
+!!Pour le vlan 120 
+Interface fa0/0.120 
+Encapsulation dot1q 120 
+Ip address 192.168.120.254 255.255.255.0 
+!!Pour le vlan 130 
+Interface fa0/0.130 
+Encapsulation dot1q 130 
+Ip address 192.168.130.254 255.255.255.0 
+
+
+A faire sur les 3 switchs 
+En 
+Conf t 
+Enable secret cisco 
+Line vty 0 15 
+Password distance 
+Login 
+Sur Switch de Gauche 
+Enable 
+Conf t 
+Interface vlan 99 
+Ip address 192.168.99.253 255.255.255.0 
+!!Pour répondre aux requêtes d’un autre VLAN, on doit ajouter la Gateway  
+!! au switch  de niveau 2 
+Exit 
+Ip default-gateway 192.168.99.254 
+Sur Switch de Droite 
+Enable 
+Conf t 
+Interface vlan 99 
+Ip address 192.168.99.252 255.255.255.0 
+!!Pour répondre aux requêtes d’un autre VLAN, on doit ajouter la Gateway  
+!! au switch de niveau 2 
+Exit 
+Ip default-gateway 192.168.99.254
+
+
+
+
+
+
+
+
+VTP – VLAN TRUNKING PROTOCOLE  
+Permert de gerer les VLANs
+Pre-requis : trunker les liaisons entre les switchs 
+Passer le switch cœur en mode vtp server et les autres en mode vtp client 
+Sur le Switch Server 
+Enable 
+Conf t 
+Vtp mode server 
+Vtp domain tssr 
+Vtp password cisco 
+Sur les Switch client 
+Enable 
+Conf t 
+Vtp mode client 
+Vtp domain tssr
+Vtp password cisco
+Ensuite on va sur le switch server, on déclare ses vlan 
+Enable 
+Conf t 
+Vlan 100 
+Name Wifi 
+Vlan 101 
+Name serveur 
+Vlan 102 
+Name pc 
+Vlan 103 
+Name gestion
+
+
+
+
+
+
+
+
+On branche le routeur sur un port trunk du commutateur 
+Puis on configure le Routeur 1841 en créant 1 sous interface par vlan 
+Enable 
+Conf t 
+Hostname R1 
+Interface fa0/0 
+No shutdown 
+Interface fa0/0.99 
+Encapsulation dot1q 99 
+Ip address 192.168.99.254 255.255.255.0 
+Interface fa0/0.101 
+Encapsulation dot1q 101 
+Ip address 192.168.101.254 255.255.255.0 
+Interface fa0/0.102 
+Encapsulation dot1q 102 
+Ip address 192.168.102.254 255.255.255.0 
+Interface fa0/0.103 
+Encapsulation dot1q 103 
+Ip address 192.168.103.254 255.255.255.0 
+
+
+
+21/10/2025
+
+ETAPE 01 – ROUTAGE INTERVLAN  ( sw3560 ET sw2960) 
+ 
+SW2960 
+EN 
+CONF T 
+HOSTNAME SW2960 
+NO IP DOMAIN-LOOKUP 
+VLAN 100 
+NAME SERVEUR 
+VLAN 150  
+NAME INVITE 
+VLAN 200 
+NAME OFFICE 
+ 
+INT RANGE FA0/1-5 
+SW MODE ACCESS 
+SW ACC VLAN 100 
+INT RANGE FA0/6-15 
+SW MODE ACCESS 
+SW ACC VLAN 200 
+INT RANGE FA0/16-20 
+SW MODE ACCESS 
+SW ACC VLAN 150 
+ 
+INT RAN FA0/21-24 
+SW MODE TRUNK 
+SW TR ALLOW VLAN ALL 
+ 
+Sw3560 
+EN 
+CONF T 
+HOSTNAME SW3560 
+NO IP DOMAIN-LOOKUP 
+ 
+VLAN 100 
+NAME SERVEUR 
+VLAN 150  
+NAME INVITE 
+VLAN 200 
+NAME OFFICE 
+INT RAN FA0/21-24 
+SW TRUNK ENCAP DOT1Q 
+SW MODE TRUNK 
+SW TRUNK ALLOW VLAN ALL 
+INT VLAN 100 
+IP ADD 172.16.11.254 255.255.255.0 
+INT VLAN 150 
+IP ADD 172.16.12.254 255.255.255.0 
+INT VLAN 200 
+IP ADD 172.16.13.254 255.255.255.0 
+EXIT 
+ 
+IP ROUTING 
+ 
+ETAPE 02 – ROUTAGE ENTRE FAI ET RTR-INTRA( 2620xm ET  2620xm) 
+FAI 
+EN 
+CONF T 
+HOSTNAME FAI 
+NO IP DOMAIN-LOOKUP 
+ 
+INT FA0/0 
+IP ADD 50.50.50.2 255.255.255.252 
+NO SHUTDOWN 
+ 
+INT SE0/0 
+IP ADD 84.96.154.5 255.255.255.252 
+CLOCK RATE 4000000 
+NO SHUTDOWN 
+ 
+RTR-INTRA 
+EN 
+CONF T 
+HOSTNAME RTR-INTRA 
+NO IP DOMAIN-LOOKUP 
+ 
+INT FA0/0 
+DESCRIPTION VERS DMZ 
+IP ADD 192.168.20.254 255.255.255.0 
+IP NAT INSIDE 
+NO SHUTDOWN 
+ 
+INT SE0/0 
+DESCRIPTION vers FAI 
+IP ADD 84.96.154.6 255.255.255.252 
+IP NAT OUTSIDE 
+NO SHUTDOWN 
+ 
+Exit 
+!! J AUTORISE LE RESEAU DE LA DMZ A UTILISER LE NAT 
+ACCESS-LIST 5 PERMIT 192.168.20.0 0.0.0.255 
+!APPLICATION DU NAT 
+IP NAT INSIDE SOURCE LIST 5 INTERFACE SE0/0 OVERLOAD 
+IP ROUTE 0.0.0.0 0.0.0.0 84.96.154.5 
+ 
+ 
+ETAPE 01 – RELIER ROUTEUR INTRA AVEC LE SWITCH CŒUR DE NIVEAU 3  ( sw3560 ET 2620XM)  
+ 
+Sur sw3560 
+!ON TRANFORME LE PORT FA0/1 EN CARTE RESEAU 
+INT FA0/1 
+NO SWICHTPORT 
+IP ADD 10.1.2.2 255.255.255.252 
+NO SHUTDOWN 
+EXIT 
+Ip route 0.0.0.0 0.0.0.0 10.1.2.1 
+ 
+ 
+ 
+ 
+Routeur intra 
+ 
+INT FA1/0 
+IP ADD 10.1.2.1 255.255.255.252 
+IP NAT INSIDE 
+NO SHUTDOWN 
+ 
+Exit 
+!Ajouter les routes pour contacter les 3 VLANS 
+IP ROUTE 172.16.11.0 255.255.255.0 10.1.2.2 
+IP ROUTE 172.16.12.0 255.255.255.0 10.1.2.2 
+IP ROUTE 172.16.13.0 255.255.255.0 10.1.2.2 
+ 
+!! ajouter les nouveaux reseau a utiliser le nat 
+ACCESS-LIST 5 PERMIT 172.16.11.0 0.0.0.255 
+ACCESS-LIST 5 PERMIT 172.16.12.0 0.0.0.255 
+ACCESS-LIST 5 PERMIT 172.16.13.0 0.0.0.255 
+ACCESS-LIST 5 PERMIT 10.1.2.0 0.0.0.3 
+ 
+!!! REDIRECTION PORT 
+IP NAT INSIDE SOURCE STATIC TCP 192.168.20.99 80 84.96.154.6 80 
+IP NAT INSIDE SOURCE STATIC TCP 192.168.20.99 443 84.96.154.6 443 
+ 
+CONFIG FINAL 
+SW2960 
+ 
+EN 
+CONF T 
+HOSTNAME SW2960 
+NO IP DOMAIN-LOOKUP 
+VLAN 100 
+NAME SERVEUR 
+VLAN 150  
+NAME INVITE 
+VLAN 200 
+NAME OFFICE 
+ 
+INT RANGE FA0/1-5 
+SW MODE ACCESS 
+SW ACC VLAN 100 
+INT RANGE FA0/6-15 
+SW MODE ACCESS 
+SW ACC VLAN 200 
+INT RANGE FA0/16-20 
+SW MODE ACCESS 
+SW ACC VLAN 150 
+ 
+INT RAN FA0/21-24 
+SW MODE TRUNK 
+SW TR ALLOW VLAN ALL 
+ 
+ 
+ 
+ 
+ 
+ 
+sw3560 
+ 
+EN 
+CONF T 
+HOSTNAME SW3560 
+NO IP DOMAIN-LOOKUP 
+VLAN 100 
+NAME SERVEUR 
+VLAN 150  
+NAME INVITE 
+VLAN 200 
+NAME OFFICE 
+ 
+INT RAN FA0/21-24 
+SW TRUNK ENCAP DOT1Q 
+SW MODE TRUNK 
+SW TR ALLOW VLAN ALL 
+ 
+INT FA0/1 
+NO SW 
+IP ADD 10.1.2.2 255.255.255.252 
+NO SHUTDOWN 
+EXIT 
+ 
+INT VLAN 100 
+IP ADD 172.16.11.254 255.255.255.0 
+INT VLAN 150 
+IP ADD 172.16.12.254 255.255.255.0 
+INT VLAN 200 
+IP ADD 172.16.13.254 255.255.255.0 
+EXIT 
+ 
+IP ROUTING 
+IP ROUTE 0.0.0.0 0.0.0.0 10.1.2.1 
+ 
+!!!FAI 
+EN 
+CONF T 
+HOSTNAME FAI 
+NO IP DOMAIN-LOOKUP 
+ 
+INT FA0/0 
+IP ADD 50.50.50.2 255.255.255.252 
+NO SHUTDOWN 
+ 
+INT SE0/0 
+IP ADD 84.96.154.5 255.255.255.252 
+CLOCK RATE 4000000 
+NO SHUTDOWN 
+ 
+ 
+!!RTR-INTRA 
+ 
+EN 
+CONF T 
+HOSTNAME RTR-INTRA 
+NO IP DOMAIN-LOOKUP 
+ 
+INT FA0/0 
+IP ADD 192.168.20.254 255.255.255.0 
+IP NAT INSIDE 
+NO SHUTDOWN 
+ 
+INT FA1/0 
+IP ADD 10.1.2.1 255.255.255.252 
+IP NAT INSIDE 
+NO SHUTDOWN 
+ 
+INT SE0/0 
+IP ADD 84.96.154.6 255.255.255.252 
+IP NAT OUTSIDE 
+NO SHUTDOWN 
+ 
+IP ROUTE 0.0.0.0 0.0.0.0 84.96.154.5 
+IP ROUTE 172.16.11.0 255.255.255.0 10.1.2.2 
+IP ROUTE 172.16.12.0 255.255.255.0 10.1.2.2 
+IP ROUTE 172.16.13.0 255.255.255.0 10.1.2.2 
+ 
+ACCESS-LIST 5 PERMIT 172.16.0.0 0.0.255.255 
+ACCESS-LIST 5 PERMIT 192.168.20.0 0.0.0.255 
+ 
+IP NAT INSIDE SOURCE LIST 5 INTERFACE SE0/0 OVERLOAD 
+ 
+!REDIRECTION DE PORT 
+IP NAT INSIDE SOURCE STATIC TCP 192.168.20.99 80 84.96.154.6 80 
+IP NAT INSIDE SOURCE STATIC TCP 192.168.20.99 443 84.96.154.6 443 
+ 
+ 
+TP 
+Ajouter un VLAN 250  NOMME LABO 
+Le reseau 172.16.14.0/24 
+GW 172.16.14.254/24 
+ 
+Affecter ce VLAN sur les ports de 11 à 15 sur le switch de niveau 2. 
+ 
+Mettre en place le routage intervlan. 
+Les pc du VLAN labo pourront aller sur internet 
+ 
+SW2960 
+EN 
+CONF T 
+VLAN 250 
+NAME LABO 
+INTER RANGE FA0/11 – 15 
+SW MODE ACCESS VLAN 250 
+SW3560 
+EN 
+CONF T 
+VLAN 250 
+NAME LABO 
+INT VLAN 250 
+IP ADD 172.16.14.254 255.255.255.0 
+RTR-INTRA 
+En 
+Conf t 
+Ip route  172.16.14.0 255.255.255.0 10.1.2.2 
+
+
+
+
+
+
+
+
+
+
+
+
+
+Routage Static - CISCO 
+Syntaxe  
+Ip route DESTNATION MASK PASSERELLE 
+Sur R1 
+Enable 
+Conf t 
+Ip route 0.0.0.0 0.0.0.0 100.15.1.30 
+Sur R2 
+Enable 
+Conf t 
+Ip route 0.0.0.0 0.0.0.0 179.58.0.2 
+Ip route 200.158.1.0 255.255.255.0 100.15.1.29 
+Sur R3 
+Enable 
+Conf t 
+Ip route 0.0.0.0 0.0.0.0 25.0.0.2 
+Ip route 200.158.1.0 255.255.255.0 179.58.0.1 
+Ip route 193.15.15.0 255.255.255.0 64.0.0.2 
+Sur R4 
+Enable 
+Conf t 
+Ip route 0.0.0.0 0.0.0.0 193.15.15.2 
+Ip route 200.158.1.0 255.255.255.0 64.0.0.1 
+Ip route 179.58.0.0 255.255.0.0 64.0.0.1 
+ 
+Sur R5 
+Enable 
+Conf t 
+Ip route 0.0.0.0 0.0.0.0 100.55.0.1 
+Ip route 200.158.1.0 255.255.255.0 193.15.15.1 
+Ip route 179.58.0.0 255.255.0.0 193.15.15.1 
+ 
+Sur R6 
+Enable 
+Conf t 
+Ip route 200.158.1.0 255.255.255.0 200.18.99.2 
+Ip route 179.58.0.0 255.255.0.0 200.18.99.2 
+Ip route 193.15.15.0 255.255.255.0 100.55.0.2 
+ 
+Sur R7 
+Enable 
+Conf t 
+Ip route 0.0.0.0 0.0.0.0 200.18.99.1 
+Ip route 200.158.1.0 255.255.255.0 25.0.0.1 
+Ip route 179.58.0.0 255.255.0.0 25.0.0.1 
+Ip route 193.15.15.0 255.255.255.0 25.0.0.1
+
+
+
+
+
+
+
+
+
+Routage RIP - CISCO 
+!!Sur R1 
+Enable 
+Conf t  
+Router rip 
+Version 2 
+No auto-summary 
+Network 200.158.1.0 
+Network 100.15.1.0 
+!!Sur R2 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 179.58.0.0 
+Network 100.15.1.0 
+!!Sur R3 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 179.58.0.0 
+Network 64.0.0.0 
+Network 25.0.0.0 
+ 
+!!Sur R4 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 64.0.0.0 
+Network 193.15.15.0 
+ 
+!!Sur R5 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 193.15.15.0 
+Network 100.55.0.0 
+ 
+!!Sur R6 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 100.55.0.0 
+Network 200.18.100.0 
+Network 200.18.99.0 
+Network 8.0.0.0 
+ 
+!!Sur R7 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 25.0.0.0 
+Network 200.18.100.0
+
+
+Rip  = DISTANCE ADMINISTRATIVE 120 
+Enable 
+Conf t 
+Router RIP 
+Version 2 
+No auto-summary 
+Network x.x.x.x 
+Network y.y.y.y 
+… 
+Les réseaux x.x.x.x et y.y.y.y sont les réseaux connectés au routeur 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ROUTAGE EIGRP 
+!!Sur R1 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 200.158.1.0 
+Network 100.15.1.28 0.0.0.3 
+!!Sur R2 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 179.58.0.0 
+Network 100.15.1.28 0.0.0.3 
+!!Sur R3 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 179.58.0.0 
+Network 64.0.0.0 0.0.0.3 
+Network 25.0.0.0 0.0.0.3 
+!!Sur R4 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 64.0.0.0 0.0.0.3 
+Network 193.15.15.0 
+!!Sur R5 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 193.15.15.0 
+Network 100.55.0.0 0.0.0.3 
+!!Sur R6 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 100.55.0.0 0.0.0.3 
+Network 200.18.100.0 
+Network 200.18.99.0 
+Network 8.0.0.0 
+!!Sur R7 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 25.0.0.0 0.0.0.3 
+Network 200.18.100.0 
+++++++++++++++++++++++++++++++++++++++++ 
+Sur Routeur  192.168.1.254/10.10.10.5 
+Enable 
+Conf t 
+Interface fa0/0 
+Ip address 192.168.1.254 255.255.255.0 
+No shutdown 
+Interface se0/0/0 
+Ip address 10.10.10.5 255.255.255.252 
+No shutdown 
+Clock rate 4000000 
+Sur Routeur  192.168.2.254/10.10.10.6 
+Enable 
+Conf t 
+Interface fa0/0 
+Ip address 192.168.2.254 255.255.255.0 
+No shutdown 
+Interface se0/0/0 
+Ip address 10.10.10.6 255.255.255.252 
+No shutdown 
+ON AJOUTE LE ROUTAGE STATIQUE 
+!!!Sur Routeur  192.168.1.254/10.10.10.5 
+enable 
+conf t 
+ip route 192.168.2.0 255.255.255.0 10.10.10.6 
+!!!Sur Routeur  192.168.2.254/10.10.10.6 
+enable 
+conf t 
+ip route 192.168.1.0 255.255.255.0 10.10.10.5
+
+
+EIGRP  = DISTANCE ADMINISTRATIVE 90 
+Enable 
+Conf t 
+Router EIGRP 55 
+No auto-summary 
+Network x.x.x.x 
+Network y.y.y.y Z.Z.Z.Z 
+Les réseaux x.x.x.x et y.y.y.y sont les réseaux connectés au routeur 
+55 est un exemple de Numéro  Système Autonome 
+Z.Z.Z.Z est le masque Générique (wildcard mask) a ajouter uniquement si le masque est diffèrent de la classe
+
+
+
+
+
+
+
+
+
+
+
+
+
+ACL – access control list 
+ACL STANDARD = > IP SOURCE  
+Plus proche de Destination 
+3 
+ACL ETENDUE => IP SOURCE / IP DESTINATION / PROTOCOL / service reseau … 
+Plus proche Source 
+ACTION 
+Autorise = permit 
+Refuse => Deny 
+Adresse IP 
+Reseau IP 
+TOUT LE MONDE  
+Analyse les différentes lignes de l’ACL de façon sequentiel, et applique des qu’il y une 
+correspondance 
+Si le routeur ne trouve aucune correspondance , Refus implicite 
+172.16.0.0 
+0.0.255.255 
+1010 1100 . 0001 0000 . 0000 0000 . 0000 0000     0000 0000 . 0000 0000 . 1111 1111 . 1111 1111 
+172.16.25.3    0.255.255.0 
+1010 1100 . 0001 0000 . 0001 1001 . 0000 0011     0000 0000 . 1111 1111 . 1111 1111 . 0000 0000 
+172.16.25.4 
+172.66.99.3 
+172.16.25.3    0.0.0.254 
+1010 1100 . 0001 0000 . 0001 1001 . 0000 0011     0000 0000 . 0000 0000 . 0000 0000 . 1111 1100 
+ACL STANDARD 
+SYNTAXE 
+Enable 
+Conf T 
+Access-List « NUMERO » « ACTION »  « IP SOURCE » « MASQUE GENERIQUE » 
+NUMERO  = 1 à 99 
+ACTION = permit / deny 
+IP SOURCE :  
+LE RESEAU IP    
+Exemple 
+10.0.0.0  
+172.16.0.0  
+192.168.1.0   
+MACHINE IP 
+10.0.0.1 
+Host 10.0.0.1 
+0.255.255.255 
+0.0.255.255 
+0.0.0.255 
+0.0.0.0 
+TOUT LE MONDE  
+1.2.3.4    255.255.255.255 
+Any
+
+
+On veut bloquer le reseau 172.16.1.0/24 vers 192.168.1.32/27 
+Sur le routeur de droite 
+Enable  
+Conf t 
+Access-list 92 deny 172.16.1.0  0.0.0.255 
+Access-list 92 permit any 
+Interface fa0/0 
+Ip access-group 92 out 
+En 
+Conf t 
+Int fa0/0 
+Ip add 192.168.0.254 255.255.255.0 
+No shut 
+Int fa0/1  
+Ip add 10.255.255.254  255.0.0.0 
+No shut 
+Etape 1  
+=  CREER LA REGLE 
+access-list 72 deny host 192.168.0.1 
+access-list 72 permit any 
+ETAPE 2  = On applique la regle 72 sur l'interface FA0/1 en sortie 
+interface fa0/1 
+ip access-group 72 out
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PROTOCOLE NAT 
+
+Il faut préciser sur le Routeur R1 si la carte reseau est sur un reseau « Privée » 
+Ou « Publique » 
+Ici mon routeur à 3 interfaces fa0/0 , Fa0/1, Se0/0/0 
+En
+Conf t 
+Interface fa0/0 
+Ip nat inside 
+Exit 
+Interface fa0/1 
+Ip nat inside 
+Exit 
+Interface se0/0/0 
+Ip nat outside 
+NAT STATIQUE 
+Associer une adresse Privée à 1 adresse Publique.  
+1 seul machine peut utiliser cette adresse 
+Ici on veut associer au serveur 192.168.1.150 l’adresse publique 201.49.10.17 
+Enable 
+Conf t 
+Ip nat inside source static 192.168.1.150  201.49.10.17 
+NAT DYNAMIQUE 
+Plusieurs machines privées vont se partager la ou les mêmes adresses publiques 
+Attention les machines ne pourront pas sortir en même temps car il faut que les adresses publiques 
+ne soit pas utilisées 
+En 
+Conf t 
+!!Etape D.1 => On créer son étendu 
+Ip nat pool POOL-PURPLE-NAT 201.49.10.18 201.49.10.18 netmask 
+255.255.255.252 
+!!Etape D.2 => On exclu la machine en NAT STATIQUE  (le serveur 
+192.168.1.150) 
+Access-list 22 deny host 192.168.1.150 
+Access-list 22 permit 192.168.1.0 0.0.0.255 
+!!Etape D.3 => On applique le NAT Dynamique 
+Ip nat inside source list 22 pool POOL-PURPLE-NAT 
+Le PAT  / SURCHAGE NAT 
+Toutes les machines privées peuvent utiliser en sortie pour internet, l’adresse publique de la carte 
+réseau de mon routeur 
+Ici on veut que le reseau bleu (192.168.0.0/24) utilise en sortie l’adresse IP  
+80.79.100.2 (se0/0/0) 
+Enable 
+Conf t 
+!!Etape P.1 : On déclare le réseau ou les machines autorisées à faire du 
+PAT 
+Access-list 33 permit 192.168.0.0 0.0.0.255 
+!!Etape P.2 : On applique 
+Ip nat inside source list 33 interface se0/0/0 OVERLOAD 
+TP NAT
+
+Sur Routeur 2811  
+!!Etape 1 : Configurer les interfaces 
+Enable 
+Conf t 
+Interface fa0/0 
+Ip address 7.0.0.100 255.0.0.0 
+No shut 
+Ip nat outside 
+Interface fa0/1 
+Ip address 10.0.0.1 255.0.0.0 
+No shut 
+Ip nat inside 
+!!Etape 02 : Créer un ACL pour specifier le reseau autorisé à utiliser le 
+PAT 
+En 
+Conf t 
+Access-list 44 permit 10.0.0.0 0.255.255.255 
+!!Etape 03 : On applique le PAT  sur l’interface fa0/0 ( branché à 
+Internet) 
+Ip nat inside source list 44 interface fa0/0 overload 
+REDIRECTION DE PORT 
+Je veut que les requetes http à destination du routeur soit rediriger vers 
+le machine 10.0.0.12 
+Enable 
+Conf t 
+Ip nat inside source static tcp 10.0.0.12 80 7.0.0.100 80 
+Chapitre : COUCHE 4  - MODELE OSI  - TRANSPORT  
+TCP  = Verification => securise le transfert et ralenti le transfert 
+UDP  = Pas de verification =>  le transfert est non sécurisé mais rapide 
+Point commun des 2 protocoles : Numéro de Port ( associé un numero à une 
+application ou 1 service reseau) 
+Numero de port BIEN CONNU (service réseau historique) = 1 et 1023 
+Numero de port DYNAMIQUE  (Application qui ont besoin du reseau : Firefox,chrome, teams …) = 1024 et 65535
+
+
+
+
+
+
+
+
+
+
+Les demandes DHCP  se font en broadcast. Donc bloqué par le routeur. 
+DISCOVER 
+OFFER 
+REQUEST 
+ACK 
+Il faut autoriser le routeur à envoyer le broadcast Discover qu’il reçoit sur son interface Fa0/1 en 
+unicast vers le serveur dhcp 192.168.1.2 
+Sur le routeur CISCO 
+Interface fa0/1 
+Ip helper-address 192.168.1.2 
+ACTIVER LE SERVICE DHCP SUR UN ROUTEUR CISCO  
+Exemple de syntaxe  
+Router>ena 
+Router#configure terminal 
+!!ON DONNE UN NOM A NOTRE ETENDU 
+Router(config)#ip dhcp pool CLIENT_LAN 
+!!CREATION DE L ETENDU 192.168.0.0/24 
+Router(dhcp-config)#network 192.168.0.0 255.255.255.0 
+!!AJOUTER LE SERVEUR DNS POUR LES CLIENTS 
+Router(dhcp-config)#dns-server 8.8.8.8 
+!!AJOUTER LA GATEWAY POUR LES CLIENTS 
+Router(dhcp-config)#default-router 192.168.0.1 
+Pour l'exclusion d'adresse, nous pouvons quitter le mode actuel pour retourner en mode 
+configuration, on va par exemple ici exclure les adresses de 192.168.0.240 à 192.168.0.250 : 
+Router(dhcp-config)#exit 
+Router(config)#ip dhcp excluded-address 192.168.0.240 192.168.0.250 
+
+
+
+
+
+SUR LE SWITCH 
+enable 
+conf t 
+vlan 10 
+name data 
+vlan 20 
+name voice 
+interface g0/1 
+switchport mode trunk 
+switchport trunk allowed vlan all 
+exit 
+interface range fa0/1 - 24 
+switchport mode access 
+switchport access vlan 10 
+switchport voice vlan 20 
+ 
+
+SUR LE ROUTEUR 
+!!CONFIGURATION DE MES INTERFACES 
+enable 
+conf t 
+interface fa0/0 
+no shut 
+interface fa0/0.10 
+encap dot1q 10 
+ip address 192.168.10.254 255.255.255.0 
+interface fa0/0.20 
+encap dot1q 20 
+ip address 192.168.20.254 255.255.255.0 
+EXIT 
+IP DHCP POOL etendue_telephone 
+network 192.168.20.0 255.255.255.0 
+default-router 192.168.20.254 
+option 150 ip 192.168.20.254 
+!!--DEBUT FACULTATIF SI VOUS VOULEZ AJOUTER LE SERVICE DHCP POUR LES PC 
+IP DHCP POOL etendue_PC 
+network 192.168.10.0 255.255.255.0 
+default-router 192.168.10.254 
+!!--FIN FACULTATIF-- 
+ 
+en 
+conf t 
+telephony-service 
+!!NOMBRE MAX DE TELEPHONE 
+max-ephones 42 
+!!NOMBRE MAX DE NUMERO DE TELEPHONE 
+max-dn 42 
+!!ADRESSE DU SERVEUR DE TELEPHONIE ET SON PORT TCP 
+ip source-address 192.168.20.254 port 2000 
+!!AUTORISER ASSIGNATION AUTOMATIQUE DES NUMERO DE TELEPHONE 
+auto assign 1 to 42 
+exit 
+ 
+!!ENTRER LA CONFIGURATION DU PREMIER DE TELEPHONE 
+ephone-dn 1 
+!!ENTRER LE NUMERO INTERNE DU PREMIER DE TELEPHONE 
+number 101 
+!!ENTRER LA CONFIGURATION DU DEUXIEME DE TELEPHONE 
+ephone-dn 2 
+!!ENTRER LE NUMERO INTERNE DU DEUXIEME DE TELEPHONE 
+number 102
+
+
+
+
+
+
+
+
+
+
+
+
+ROUTAGE STATIC IPV6 
+ 
+ 
+Sur le routeur CAFE 
+ 
+Enable 
+Conf t 
+Hostname CAFE 
+No ip domain-lookup 
+!Etape 01 : Activer ipv6 sur le routeur 
+Ipv6 unicast-routing 
+!Etape02 : ajouter une ip global a l’interface fa0/0 
+Interface fa0/0 
+Ipv6 address 2001:cafe::/64 eui-64 
+No shutdown 
+!Etape 03 : Ajouter une adresse local fe80 
+Ipv6 enable 
+ 
+ 
+ 
+Enable 
+Conf t 
+Hostname ABCD 
+No ip domain-lookup 
+!Etape 01 : Activer ipv6 sur le routeur 
+Ipv6 unicast-routing 
+!Etape02 : ajouter une ip global a l’interface fa0/0 
+Interface fa0/0 
+Ipv6 address 2001:abcd::/64 eui-64 
+No shutdown 
+!Etape 03 : Ajouter une adresse local fe80 
+Ipv6 enable 
+ 
+Sur routeur CAFE 
+En 
+Conf t 
+Interface fa0/1 
+Ipv6 address fc00::1/64 
+No shutdown 
+EXIT 
+Ipv6 route 2001:abcd::/64 fc00::2  
+Sur routeur ABCD 
+En 
+Conf t 
+Interface fa0/1 
+Ipv6 address fc00::2/64 
+No shutdown 
+EXIT 
+Ipv6 route 2001:cafe::/64 fc00::1  
+Pour ajouter les informations DNS , on va acTiver un dhcp sans etat 
+sur le routeur CAFE 
+ENAbLE 
+CONF T 
+Ipv6 dhcp pool etendu-cafe 
+Dns-server 2001:ABCD::250:FFF:FE12:3DD 
+Exit 
+Interface fa0/0 
+Ipv6 dhcp server etendu-cafe 
+!!dhcp sans etat, ajoute info complémentaire a la config automatique 
+Ipv6 nd other-config-flag 
+TP BOX 
+Sur Routeur Orange 
+Enable 
+Conf t 
+Hostname Orange 
+Int loopback0 
+Ip address 8.8.8.8 255.0.0.0 
+No shut 
+Int fa0/0 
+Ip address 22.22.22.1 255.255.255.0 
+No shut 
+Exit 
+Ip dhcp pool entendu-box 
+Network 22.22.22.0 255.255.255.0 
+Default-router 22.22.22.1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TP BOX 
+Sur Routeur Orange 
+Enable 
+Conf t 
+Hostname Orange 
+Int loopback0 
+Ip address 8.8.8.8 255.0.0.0 
+No shut 
+Int fa0/0 
+Ip address 22.22.22.1 255.255.255.0 
+No shut 
+Exit 
+Ip dhcp pool entendu-box 
+Network 22.22.22.0 255.255.255.0 
+Default-router 22.22.22.1 
+
+
+
+
+Sur FAI2 
+ 
+enable 
+conf t 
+hostname FAI2 
+no ip domain-lookup 
+ 
+interface g0/0/0 
+ip address 8.255.255.254 255.0.0.0 
+no shut 
+ 
+interface g0/0/1 
+ip address 52.255.255.254 255.0.0.0 
+no shut 
+ 
+interface g0/0/2 
+ip address 142.250.255.254 255.255.0.0 
+no shut 
+ 
+interface se0/1/0 
+ip address 190.20.10.1 255.255.255.252 
+clock rate 4000000 
+no shut 
+ 
+ip route 0.0.0.0 0.0.0.0 190.20.10.2 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Sur FAI01 
+ 
+ENABLE 
+CONF T 
+HOSTNAME FAI1 
+NO IP DOMAIN-LOOKUP 
+ 
+!Interface vers FAI2 
+interface se0/1/0 
+Description vers FAI 2 
+ip address 190.20.10.2 255.255.255.252 
+no shut 
+ 
+ 
+INTERFACE G0/0/0 
+Description vers BOX1 
+IP ADDRESS 201.201.201.254 255.255.255.0 
+NO SHUT 
+ 
+INTERFACE G0/0/1 
+Description vers BOX2 
+IP ADDRESS 202.202.202.254 255.255.255.0 
+NO SHUT 
+ 
+IP ROUTE 0.0.0.0 0.0.0.0 190.20.10.1 
+ 
+ip dhcp pool BOX1  
+network 201.201.201.0 255.255.255.0  
+dns-server 8.8.8.8  
+default-router 201.201.201.254  
+ 
+ 
+ip dhcp pool BOX2  
+network 202.202.202.0 255.255.255.0  
+dns-server 8.8.8.8  
+default-router 202.202.202.254
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
