@@ -1,0 +1,52 @@
+Role FSMO 
+Dans la Foret 
+• Maitre Nom 
+• Controleur de Schema 
+
+Dans le Domaine 
+• Maitre RID 
+• Maitre Infra 
+• Maitre PDC 
+
+Maitre de Nom =>S’assurer qu’il n’y pas de domaine identique dans la fôret 
+Controleur de Schema => Active Directory c’est une base de donnée, il gère la Structure (schema) d’AD 
+
+Maitre RID => Sert à s’assurer que chaque ressources est un SID unique 
+
+Maitre Infra => S’assurer qu’il n’y pas des doublons dans mon infra (dossier partagé ayant le meme 
+nom) 
+
+Maitre PDC =>  
+Permet au vieux OS d’intégrer dans un domaine (Windows NT) 
+Synchronique L‘horloge de tous les Contrôle de domaine 
+Verrouille un compte utilisateur 
+
+Voir la liste des rôles FSMO : Netdom query fsmo 
+Transfer de Role FSMO  avec  l’outils NTDSUTIL.EXE 
+ICI ON VEUT TRANSFERER LE MAITRE RID DE AD01 vers AD02 
+Sur AD01 
+
+Maintenance des Roles fsmo : Roles 
+
+On se connecte à AD02 : Connections 
+Connect to server ad02 : Quit
+
+Retour au FSMO Maintenance : Transfer rid master 
+Quit  
+Quit 
+
+SEIZE Rôle avec l’outil NTDSUTIL.EXE 
+Ici on veut récupérer le rôle FSMO maitre RID du serveur AD02 (éteint) vers AD01  
+sur AD01 
+Maintenance des Rôles fsmo 
+Roles 
+On se connecte à soi même 
+Connections 
+Connect to server ad01 
+Quit 
+Retour au FSMO Maintenance 
+seize rid master 
+Quit  
+Quit 
+
+https://www.it-connect.fr/transfert-des-roles-fsmo-avec-ntdsutil/

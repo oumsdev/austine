@@ -1,0 +1,11 @@
+Activer SSH 
+
+Cela n’est pas possible à partir de sconfig On doit le faire en powershell 
+Pour basculer en powershell 
+Powershell 
+Installer OpenSSH server 
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0 
+Le démarrer SSH Server 
+Start-Service -Name "sshd" 
+Rendre le démarrage automatique 
+Set-Service -Name "sshd" -StartupType Automatic 

@@ -1,0 +1,54 @@
+Cours du 30 Octobre 2025 
+
+WDS 
+
+https://www.youtube.com/watch?v=QY8yNN2i29k 
+
+ETAPE 00 :  Lancer le RT-240.254 
+
+Etape-01 
+Cloner la machine WIN-SRV19-MASTER et la renommer SRV-WDS02 
+Reseau  privé hôte : #2 
+Changer le nom de la machine en SRV-WDS02 
+
+Etape 02
+Installer le serveur de Deploiement Windows (WDS) 
+
+Etape 03
+Installer le DHCP 
+
+Etape 04
+Configure DHCP 
+Créer une nouvelle etendue 
+192.168.240.120  -149 
+Routeur : 192.168.240.254 
+DNS = 8.8.8.8 /1.1.1.1 
+
+Etape 05 
+Insérer le ISO de Windows 10 
+Copier dans le dossier Document du Serveur 
+Sources/install.wim 
+Sources/boot.wim 
+
+Etape 06 
+Configurer WDS 
+Image d’installation : install.wim 
+Image de démarrare : boot.wim  
+
+Etape 07 : 
+Aller dans les proprietés de WDS 
+Onglet DCHP 
+Autoriser client connu et inconnu 
+Laisser cocher les 2 options DHCP 
+Pour vérifier 
+Aller dans service DHCP et verifier si dans option etendu vous avez l’option 60 
+
+Etape 8 :  
+Démarrer le service WDS  (clic droit / toutes les taches) 
+ou 
+On redémarre le serveur 
+
+Etape 09 
+-Lancer le client en boot F12 
+lOGIN = SRV-WDS02\administrateur 
+mdp = Reponse2025

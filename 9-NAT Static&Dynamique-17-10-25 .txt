@@ -1,0 +1,84 @@
+PROTOCOLE NAT 
+
+Il faut préciser sur le Routeur R1 si la carte reseau est sur un reseau « Privée » 
+Ou « Publique » 
+Ici mon routeur à 3 interfaces fa0/0 , Fa0/1, Se0/0/0 
+En
+Conf t 
+Interface fa0/0 
+Ip nat inside 
+Exit 
+Interface fa0/1 
+Ip nat inside 
+Exit 
+Interface se0/0/0 
+Ip nat outside 
+NAT STATIQUE 
+Associer une adresse Privée à 1 adresse Publique.  
+1 seul machine peut utiliser cette adresse 
+Ici on veut associer au serveur 192.168.1.150 l’adresse publique 201.49.10.17 
+Enable 
+Conf t 
+Ip nat inside source static 192.168.1.150  201.49.10.17 
+NAT DYNAMIQUE 
+Plusieurs machines privées vont se partager la ou les mêmes adresses publiques 
+Attention les machines ne pourront pas sortir en même temps car il faut que les adresses publiques 
+ne soit pas utilisées 
+En 
+Conf t 
+!!Etape D.1 => On créer son étendu 
+Ip nat pool POOL-PURPLE-NAT 201.49.10.18 201.49.10.18 netmask 
+255.255.255.252 
+!!Etape D.2 => On exclu la machine en NAT STATIQUE  (le serveur 
+192.168.1.150) 
+Access-list 22 deny host 192.168.1.150 
+Access-list 22 permit 192.168.1.0 0.0.0.255 
+!!Etape D.3 => On applique le NAT Dynamique 
+Ip nat inside source list 22 pool POOL-PURPLE-NAT 
+Le PAT  / SURCHAGE NAT 
+Toutes les machines privées peuvent utiliser en sortie pour internet, l’adresse publique de la carte 
+réseau de mon routeur 
+Ici on veut que le reseau bleu (192.168.0.0/24) utilise en sortie l’adresse IP  
+80.79.100.2 (se0/0/0) 
+Enable 
+Conf t 
+!!Etape P.1 : On déclare le réseau ou les machines autorisées à faire du 
+PAT 
+Access-list 33 permit 192.168.0.0 0.0.0.255 
+!!Etape P.2 : On applique 
+Ip nat inside source list 33 interface se0/0/0 OVERLOAD 
+TP NAT
+
+Sur Routeur 2811  
+!!Etape 1 : Configurer les interfaces 
+Enable 
+Conf t 
+Interface fa0/0 
+Ip address 7.0.0.100 255.0.0.0 
+No shut 
+Ip nat outside 
+Interface fa0/1 
+Ip address 10.0.0.1 255.0.0.0 
+No shut 
+Ip nat inside 
+!!Etape 02 : Créer un ACL pour specifier le reseau autorisé à utiliser le 
+PAT 
+En 
+Conf t 
+Access-list 44 permit 10.0.0.0 0.255.255.255 
+!!Etape 03 : On applique le PAT  sur l’interface fa0/0 ( branché à 
+Internet) 
+Ip nat inside source list 44 interface fa0/0 overload 
+REDIRECTION DE PORT 
+Je veut que les requetes http à destination du routeur soit rediriger vers 
+le machine 10.0.0.12 
+Enable 
+Conf t 
+Ip nat inside source static tcp 10.0.0.12 80 7.0.0.100 80 
+Chapitre : COUCHE 4  - MODELE OSI  - TRANSPORT  
+TCP  = Verification => securise le transfert et ralenti le transfert 
+UDP  = Pas de verification =>  le transfert est non sécurisé mais rapide 
+Point commun des 2 protocoles : Numéro de Port ( associé un numero à une 
+application ou 1 service reseau) 
+Numero de port BIEN CONNU (service réseau historique) = 1 et 1023 
+Numero de port DYNAMIQUE  (Application qui ont besoin du reseau : Firefox,chrome, teams …) = 1024 et 65535

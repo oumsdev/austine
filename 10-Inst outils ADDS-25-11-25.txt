@@ -1,0 +1,21 @@
+Installer les outils ADDS
+
+Install-WindowsFeature -name AD-Domain-services –IncludeManagementTools 
+Import-Module ADDSDeployment 
+
+Option 01 – Ajouter dans le domaine sans Ajouter un server DNS sur AD03 
+Install-ADDSDomainController -Credential (Get-Credential 
+"tssr.local\administrateur") -DomainName "tssr.local" 
+
+Option 02 – Ajouter dans le domaine AVEC un server DNS sur AD03 
+Install-ADDSDomainController -InstallDNS -Credential (Get-Credential 
+"tssr.local\administrateur") -DomainName "tssr.local" 
+
+Tester un utilisateur Existe 
+➔ Get-ADUser -Filter {SamAccountName -eq 'toto'} 
+
+Créer un utilisateur 
+New-ADUser -Name "Jean EMARE" -GivenName "Jean" -Surname "EMARE" 
+SamAccountName "jemare" -UserPrincipalName "jemare@tssr.local" 
+AccountPassword (ConvertTo-SecureString -AsPlainText "Reponse2025" -Force) -Enable $true -ChangePasswordAtLogon $false -Path 
+"OU=@tssr,DC=tssr,DC=local"

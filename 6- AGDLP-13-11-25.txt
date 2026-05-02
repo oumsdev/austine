@@ -1,0 +1,27 @@
+https://www.it-connect.fr/agdlp-bien-gerer-les-permissions-de-son-serveur-de-fichiers/
+
+
+Dans ce chapitre, nous allons apprendre à mettre en pratique la méthode AGDLP
+pour gérer les droits sur un serveur de fichiers Windows Server, puisqu'il s'agit d'une méthode recommandée par Microsoft.
+
+L'acronyme "AGDLP" signifie "Account Global Domain Local Permissions"
+
+En résumé, cette méthode consiste à jouer avec l'imbrication des groupes de sécurité et des étendues liées aux groupes de sécurité
+Pour rappel, lorsque l'on crée un groupe de sécurité dans l'Active Directory, nous avons accès à trois étendues différentes :
+Domaine local, Globale et Universelle.
+
+La méthode AGDLP consiste à appliquer le principe suivant :
+
+Un compte utilisateur doit être membre d'un groupe de sécurité global (GG_),
+Ce groupe de sécurité global doit ensuite être ajouté en tant que membre d'un groupe de sécurité domaine local (GDL_) - Ayant une portée uniquement sur le domaine d'appartenance,
+Ce groupe de sécurité domaine local est utilisé pour ajuster les permissions NTFS sur le répertoire partagé
+
+Ce principe de gestion des droits d'accès est avantageux, car il va permettre de bien structurer les droits d'accès et d'en faciliter la gestion sur la durée. À l'usage, ce sera un gain de temps pour les administrateurs et ce n'est pas un luxe, car certains serveurs de fichiers sont un véritable calvaire à gérer lorsqu'il y a une mauvaise gestion des permissions.
+
+Vous vous demandez sûrement pourquoi on utilise deux types de groupes différents, avec des étendues différentes : c'est pour des raisons de sécurité. En cas de compromission ou d'infection d'un serveur, nous limitons ainsi les risques de propagation, car nous attribuons des droits uniquement aux groupes de sécurité avec l'étendue "Domaine local", dont la portée se limite au domaine local. De ce fait, la méthode AGDLP est encore plus pertinente sur les environnements avec plusieurs domaines.
+
+G_ pour tous les groupes de sécurité avec l'étendue "Globale"
+DL_ ou GL_ ou GDL_ pour tous les groupes de sécurité avec l'étendue "Domaine local"
+_RW pour tous les groupes permettant de bénéficier de droits en lecture et écriture
+_RO pour tous les groupes permettant de bénéficier d'un accès en lecture seule
+Ainsi, rien qu'en regardant la liste des groupes dans l'Active Directory, vous pouvez savoir à quoi correspond ce groupe. Si besoin, vous pouvez préciser le chemin UNC vers le partage dans la description du groupe de domaine local pour être encore plus précis.

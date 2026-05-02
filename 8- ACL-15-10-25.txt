@@ -1,0 +1,72 @@
+ACL – access control list 
+ACL STANDARD = > IP SOURCE  
+Plus proche de Destination 
+3 
+ACL ETENDUE => IP SOURCE / IP DESTINATION / PROTOCOL / service reseau … 
+Plus proche Source 
+ACTION 
+Autorise = permit 
+Refuse => Deny 
+Adresse IP 
+Reseau IP 
+TOUT LE MONDE  
+Analyse les différentes lignes de l’ACL de façon sequentiel, et applique des qu’il y une 
+correspondance 
+Si le routeur ne trouve aucune correspondance , Refus implicite 
+172.16.0.0 
+0.0.255.255 
+1010 1100 . 0001 0000 . 0000 0000 . 0000 0000     0000 0000 . 0000 0000 . 1111 1111 . 1111 1111 
+172.16.25.3    0.255.255.0 
+1010 1100 . 0001 0000 . 0001 1001 . 0000 0011     0000 0000 . 1111 1111 . 1111 1111 . 0000 0000 
+172.16.25.4 
+172.66.99.3 
+172.16.25.3    0.0.0.254 
+1010 1100 . 0001 0000 . 0001 1001 . 0000 0011     0000 0000 . 0000 0000 . 0000 0000 . 1111 1100 
+ACL STANDARD 
+SYNTAXE 
+Enable 
+Conf T 
+Access-List « NUMERO » « ACTION »  « IP SOURCE » « MASQUE GENERIQUE » 
+NUMERO  = 1 à 99 
+ACTION = permit / deny 
+IP SOURCE :  
+LE RESEAU IP    
+Exemple 
+10.0.0.0  
+172.16.0.0  
+192.168.1.0   
+MACHINE IP 
+10.0.0.1 
+Host 10.0.0.1 
+0.255.255.255 
+0.0.255.255 
+0.0.0.255 
+0.0.0.0 
+TOUT LE MONDE  
+1.2.3.4    255.255.255.255 
+Any
+
+
+On veut bloquer le reseau 172.16.1.0/24 vers 192.168.1.32/27 
+Sur le routeur de droite 
+Enable  
+Conf t 
+Access-list 92 deny 172.16.1.0  0.0.0.255 
+Access-list 92 permit any 
+Interface fa0/0 
+Ip access-group 92 out 
+En 
+Conf t 
+Int fa0/0 
+Ip add 192.168.0.254 255.255.255.0 
+No shut 
+Int fa0/1  
+Ip add 10.255.255.254  255.0.0.0 
+No shut 
+Etape 1  
+=  CREER LA REGLE 
+access-list 72 deny host 192.168.0.1 
+access-list 72 permit any 
+ETAPE 2  = On applique la regle 72 sur l'interface FA0/1 en sortie 
+interface fa0/1 
+ip access-group 72 out

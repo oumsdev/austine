@@ -1,0 +1,76 @@
+Routage RIP - CISCO 
+!!Sur R1 
+Enable 
+Conf t  
+Router rip 
+Version 2 
+No auto-summary 
+Network 200.158.1.0 
+Network 100.15.1.0 
+!!Sur R2 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 179.58.0.0 
+Network 100.15.1.0 
+!!Sur R3 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 179.58.0.0 
+Network 64.0.0.0 
+Network 25.0.0.0 
+ 
+!!Sur R4 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 64.0.0.0 
+Network 193.15.15.0 
+ 
+!!Sur R5 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 193.15.15.0 
+Network 100.55.0.0 
+ 
+!!Sur R6 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 100.55.0.0 
+Network 200.18.100.0 
+Network 200.18.99.0 
+Network 8.0.0.0 
+ 
+!!Sur R7 
+Enable 
+Conf t  
+Router rip 
+No auto-summary 
+Version 2 
+Network 25.0.0.0 
+Network 200.18.100.0
+
+
+Rip  = DISTANCE ADMINISTRATIVE 120 
+Enable 
+Conf t 
+Router RIP 
+Version 2 
+No auto-summary 
+Network x.x.x.x 
+Network y.y.y.y 
+… 
+Les réseaux x.x.x.x et y.y.y.y sont les réseaux connectés au routeur 

@@ -1,0 +1,75 @@
+ROUTAGE STATIC IPV6 
+ 
+ 
+Sur le routeur CAFE 
+ 
+Enable 
+Conf t 
+Hostname CAFE 
+No ip domain-lookup 
+!Etape 01 : Activer ipv6 sur le routeur 
+Ipv6 unicast-routing 
+!Etape02 : ajouter une ip global a l’interface fa0/0 
+Interface fa0/0 
+Ipv6 address 2001:cafe::/64 eui-64 
+No shutdown 
+!Etape 03 : Ajouter une adresse local fe80 
+Ipv6 enable 
+ 
+ 
+ 
+Enable 
+Conf t 
+Hostname ABCD 
+No ip domain-lookup 
+!Etape 01 : Activer ipv6 sur le routeur 
+Ipv6 unicast-routing 
+!Etape02 : ajouter une ip global a l’interface fa0/0 
+Interface fa0/0 
+Ipv6 address 2001:abcd::/64 eui-64 
+No shutdown 
+!Etape 03 : Ajouter une adresse local fe80 
+Ipv6 enable 
+ 
+Sur routeur CAFE 
+En 
+Conf t 
+Interface fa0/1 
+Ipv6 address fc00::1/64 
+No shutdown 
+EXIT 
+Ipv6 route 2001:abcd::/64 fc00::2  
+Sur routeur ABCD 
+En 
+Conf t 
+Interface fa0/1 
+Ipv6 address fc00::2/64 
+No shutdown 
+EXIT 
+Ipv6 route 2001:cafe::/64 fc00::1  
+Pour ajouter les informations DNS , on va acTiver un dhcp sans etat 
+sur le routeur CAFE 
+ENAbLE 
+CONF T 
+Ipv6 dhcp pool etendu-cafe 
+Dns-server 2001:ABCD::250:FFF:FE12:3DD 
+Exit 
+Interface fa0/0 
+Ipv6 dhcp server etendu-cafe 
+!!dhcp sans etat, ajoute info complémentaire a la config automatique 
+Ipv6 nd other-config-flag 
+TP BOX 
+Sur Routeur Orange 
+Enable 
+Conf t 
+Hostname Orange 
+Int loopback0 
+Ip address 8.8.8.8 255.0.0.0 
+No shut 
+Int fa0/0 
+Ip address 22.22.22.1 255.255.255.0 
+No shut 
+Exit 
+Ip dhcp pool entendu-box 
+Network 22.22.22.0 255.255.255.0 
+Default-router 22.22.22.1

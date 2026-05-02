@@ -1,0 +1,334 @@
+06/10/2025
+
+Config Switch 01
+ENABLE 
+CONF T
+!! etape00-Nommer le switch
+HOSTNAME SW01 
+!! etape01-Déclaration VLAN
+VLAN 2 
+NAME VLAN_DEUX 
+VLAN 3 
+NAME VLAN_TROIS
+VLAN 4  
+NAME VLAN_QUATRE 
+!! etape02-Affectation interfaces 
+EXIT
+INTERFACE RANGE FA0/1 - 24 
+SWITCHPORT MODE TRUNK 
+SWITCHPORT TRUNK ALLOWED VLAN ALL 
+
+-Config Switch 02 
+ENABLE 
+CONFIG T 
+!! etape00-Nommer le switch 
+HOSTNAME SW02 
+!! etape01-Déclaration VLAN 
+VLAN 2 
+NAME VLAN_DEUX 
+VLAN 4 
+NAME VLAN_QUATRE 
+!! etape02-Affectation interfaces 
+EXIT
+INTERFACE RANGE FA0/1 - 10 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 2 
+INTERFACE RANGE FA0/11 - 20
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 4 
+
+-Config Switch 03
+ENABLE 
+CONFIG T 
+!! etape00-Nommer le switch 
+HOSTNAME SW03 
+!! etape01-Déclaration VLAN 
+VLAN 3 
+NAME VLAN_TROIS 
+VLAN 4 
+NAME VLAN_QUATRE 
+!! etape02-Affectation interfaces 
+EXIT 
+INTERFACE RANGE FA0/1 - 10 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 3 
+INTERFACE RANGE FA0/11 - 20 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 4 
+
+
+SWITCH 0 – SWITCH DU HAUT 
+Enable 
+Conf t 
+Hostname SwCoeur 
+Vlan 99 
+Name gestion 
+Vlan 101 
+Name client 
+Vlan 102 
+Name serveur 
+Vlan 103 
+Name wifi 
+Exit 
+Interface range fa0/1-20 
+Switchport mode trunk 
+Switchport trunk allowed vlan all 
+SWITCH 1 – SWITCH DE GAUCHE 
+Enable 
+Conf t 
+Hostname SwG 
+Vlan 99 
+Name gestion 
+Vlan 101 
+Name client 
+Vlan 102 
+Name serveur 
+Vlan 103 
+Name wifi 
+Exit 
+Interface range fa0/1-20 
+Switchport mode access 
+Switchport access vlan 101 
+Interface fa0/21 
+Switchport mode access 
+Switchport access vlan 103 
+Interface fa0/22 
+Switchport mode access 
+Switchport access vlan 99 
+SWITCH 2 – SWITCH DE DROITE 
+Enable 
+Conf t 
+Hostname Swd 
+Vlan 99 
+Name gestion 
+Vlan 101 
+Name client 
+Vlan 102 
+Name serveur 
+Vlan 103 
+Name wifi 
+Exit 
+Interface range fa0/1-15 
+Switchport mode access 
+Switchport access vlan 101 
+Interface range fa0/16-20 
+Switchport mode access 
+Switchport access vlan 102 
+Interface fa0/21 
+Switchport mode access 
+Switchport access vlan 103 
+Interface fa0/22 
+Switchport mode access 
+Switchport access vlan 99
+
+hostname SWCOEUR 
+VLAN 101 
+NAME CLIENT 
+VLAN 102 
+NAME SERVEUR 
+VLAN 103 
+NAME INVITE 
+VLAN 99 
+NAME GESTION 
+EXIT 
+INTERFACE RANGE FA0/1-20 
+!!On implémente le protocole 802.1q pour trunk 
+switchport trunk encap dot1q 
+switchport mode trunk 
+switchport trunk allowed vlan all 
+!Creation de mes passerelles 
+interface vlan 101 
+ip address 192.168.101.254 255.255.255.0 
+interface vlan 102 
+ip address 192.168.102.254 255.255.255.0 
+interface vlan 103 
+ip address 192.168.103.254 255.255.255.0 
+interface vlan 99 
+ip address 192.168.99.254 255.255.255.0 
+exit 
+!Activer le routage 
+Ip routing
+
+
+
+07/10/2025
+
+Sur Switch ETAGE0 
+Enable 
+Conf t 
+Hosntame ETAGE0 
+ 
+!!CREATION VLAN 110 – 120 - 130 
+VLAN 110 
+NAME PC 
+VLAN 120 
+NAME PORTABLE 
+VLAN 130 
+NAME SERVEUR 
+EXIT 
+ 
+!!AFFECTATION VLAN 130 AU INTERFACE FA0/1 à FA0/10 
+INTERFACE RANGE FA0/1 - 10 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 130 
+ 
+!!AFFECTATION VLAN 120 AU INTERFACE FA0/11 à FA0/20 
+INTERFACE RANGE FA0/11 - 20 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 120 
+ 
+!!TRUNK INTERFACE FA0/24 
+INTERFACE FA0/24 
+SWITCHPORT MODE TRUNK 
+SWITCHPORT TRUNK ALLOWED VLAN ALL 
+ 
+ 
+Sur Switch ETAGE1 
+Enable 
+Conf t 
+Hosntame ETAGE1 
+ 
+!!CREATION VLAN 110 – 120 - 130 
+VLAN 110 
+NAME PC 
+VLAN 120 
+NAME PORTABLE 
+VLAN 130 
+NAME SERVEUR 
+EXIT 
+ 
+!!AFFECTATION VLAN 110 AU INTERFACE FA0/1 à FA0/10 
+INTERFACE RANGE FA0/1 - 10 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 110 
+ 
+!!AFFECTATION VLAN 130 AU INTERFACE FA0/11 à FA0/20 
+INTERFACE RANGE FA0/11 - 20 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 130 
+ 
+!!TRUNK INTERFACE FA0/23 ET FA0/24 
+INTERFACE RANGE FA0/23 - 24 
+SWITCHPORT MODE TRUNK 
+SWITCHPORT TRUNK ALLOWED VLAN ALL 
+ 
+Sur Switch ETAGE2 
+Enable 
+Conf t 
+Hosntame ETAGE2 
+ 
+!!CREATION VLAN 110 – 120 - 130 
+VLAN 110 
+NAME PC 
+VLAN 120 
+NAME PORTABLE 
+VLAN 130 
+NAME SERVEUR 
+EXIT 
+ 
+!!AFFECTATION VLAN 110 AU INTERFACE FA0/1 à FA0/10 
+INTERFACE RANGE FA0/1 - 10 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 110 
+ 
+!!AFFECTATION VLAN 120 AU INTERFACE FA0/11 à FA0/20 
+INTERFACE RANGE FA0/11 - 20 
+SWITCHPORT MODE ACCESS 
+SWITCHPORT ACCESS VLAN 120 
+!!TRUNK INTERFACE FA0/23 
+INTERFACE FA0/23 
+SWITCHPORT MODE TRUNK 
+SWITCHPORT TRUNK ALLOWED VLAN ALL
+
+
+Sur SwCoeur
+Enable 
+Conf t 
+Hostname SwCoeur 
+!!CREATION VLAN 110 – 120 - 130 
+Vlan 110 
+Name PC 
+Vlan 120 
+Name Portable 
+Vlan 130 
+Name Serveur 
+!!TRUNK INTERFACE FA0/24 
+Interface fa0/24 
+Switchport trunk encap dot1q 
+Switchport mode trunk 
+Exit 
+ 
+!!CREATION DES 3 INTERFACES DU SWITCH 
+Interface vlan 110 
+Ip address 192.168.110.254 255.255.255.0 
+Interface vlan 120 
+Ip address 192.168.120.254 255.255.255.0 
+Interface vlan 130 
+Ip address 192.168.130.254 255.255.255.0 
+Exit 
+ 
+!!ACTIVATION ROUTAGE INTER-VLAN 
+Ip routing 
+ 
+ 
+Reinitialisé un commutateur CISCO 
+!!Supprimer le startup-config 
+Write erase 
+!!On supprime la bdd avec les vlan 
+Delete flash:vlan.dat 
+!!On redemarre le commutateur 
+Reload 
+ 
+Routage Inter-vlan avec un routeur 
+ 
+Etape 01 – 
+On relie le routeur au commutateur avec un cable droit 
+Etape 02  
+On trunk sur le commutateur, l’interface relier au routeur 
+Etape 03 
+On allume sur le routeur la carte reseau branché vers le commutateur 
+Exemple 
+Interface fa0/0 
+No shutdown 
+ 
+Etape 04 
+On créer autant de carte reseau virtuel que de vlan 
+!!Pour le vlan 110 
+Interface fa0/0.110 
+Encapsulation dot1q 110 
+Ip address 192.168.110.254 255.255.255.0 
+!!Pour le vlan 120 
+Interface fa0/0.120 
+Encapsulation dot1q 120 
+Ip address 192.168.120.254 255.255.255.0 
+!!Pour le vlan 130 
+Interface fa0/0.130 
+Encapsulation dot1q 130 
+Ip address 192.168.130.254 255.255.255.0 
+
+
+A faire sur les 3 switchs 
+En 
+Conf t 
+Enable secret cisco 
+Line vty 0 15 
+Password distance 
+Login 
+Sur Switch de Gauche 
+Enable 
+Conf t 
+Interface vlan 99 
+Ip address 192.168.99.253 255.255.255.0 
+!!Pour répondre aux requêtes d’un autre VLAN, on doit ajouter la Gateway  
+!! au switch  de niveau 2 
+Exit 
+Ip default-gateway 192.168.99.254 
+Sur Switch de Droite 
+Enable 
+Conf t 
+Interface vlan 99 
+Ip address 192.168.99.252 255.255.255.0 
+!!Pour répondre aux requêtes d’un autre VLAN, on doit ajouter la Gateway  
+!! au switch de niveau 2 
+Exit 
+Ip default-gateway 192.168.99.254

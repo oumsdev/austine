@@ -1,0 +1,115 @@
+Reseau CISCO
+
+03/10/2025
+
+Commande de base Cisco 
+
+!!Passer en mode admin : 
+enable
+!!Passer en mode de configuration :
+Configure Terminal 
+!!Renommer l’equipement :  
+hostname Paris 
+!!Ajouter un mot de passe enable chiffré :  
+enable secret tssr 
+!!Ajouter un mot de passe enable old version IOS :
+enable password simple 
+!!Ajouter un mot de passe telnet : 
+Line vty 0 4
+Password rezo 
+login 
+exit 
+!!Configurer la carte réseau FastEthernet0/1 : 
+interface fastEthernet0/1 
+ip address 192.168.0.254 255.255.255.0 
+no shutdown 
+exit 
+!!Pour desactiver la recherche DNS 
+No ip domain-lookup 
+!!Sauvegarder sa config
+End
+write
+!!Mettre son equipement à l’heure :
+!!En mode enable
+clock set 11:52:00 3 oct 2025 
+!!Pour visualiser la configuration courrante
+Show running-config
+!!Pour lancer une commande en mode enable
+!!dans un autre mode, on peut utiliser la commande do 
+R1(config)#do show running-config 
+
+TP02
+Configurer le routeur 2911 avec les parametres suivant sans passer par le mode setup 
+Nom du routeur = Raoul 
+Mot de passe enable chiffré = cisco 
+Mot de passe Telnet = distance 
+Adresse IP GigabitEthernet0/0 = 10.255.255.254 /8 
+Desactiver la recherche DNS 
+Mettre votre equipement à l'heure 
+
+Switch#conf t 
+Switch(config)#vlan 110 
+Switch(config-vlan)#name jaune 
+Switch(config-vlan)#vlan 120 
+Switch(config-vlan)#name bleu 
+Switch(config-vlan)#vlan 130 
+Switch(config-vlan)#name vert 
+Switch(config-vlan)#do show vlan 
+Switch(config-vlan)#exit 
+Switch(config)#interface range fa0/1 – 8 
+Switch(config-ifrange)#switchport mode access 
+Switch(config-ifrange)#switchport access vlan 110 
+Switch(config-ifrange)#exit 
+Switch(config)#interface range fa0/9 – 16 
+Switch(config-ifrange)#switchport mode access 
+Switch(config-ifrange)#switchport access vlan 120
+Switch(config-ifrange)#exit 
+Switch(config)#interface range fa0/17 – 20 
+Switch(config-ifrange)#switchport mode access 
+Switch(config-ifrange)#switchport access vlan 130  
+Switch(config-ifrange)#do show vlan 
+Switch(config-ifrange)#exit 
+Switch(config)#hostname SW1
+ 
+
+ 
+
+CONFIG SW2
+enable 
+conf t 
+hostname SW2 
+vlan 110 
+name jaune 
+vlan 120 
+name bleu 
+vlan 130 
+name vert 
+exit 
+interface range fa0/1-24 
+switchport mode access 
+exit 
+interface range fa0/1-8 
+switchport access vlan 110 
+exit 
+interface range fa0/9-16 
+switchport access vlan 120 
+exit 
+interface range fa0/17-20 
+switchport access vlan 130 
+exit 
+do write 
+ 
+Sur SWITCH CŒUR 
+Enable 
+Conf t 
+Hostname SwC 
+Vlan 110 
+Name jaune 
+Vlan 120 
+Name bleu 
+Vlan 130 
+Name vert 
+Exit 
+Interface range gi0/1-2 
+Switchport mode trunk 
+Switchport trunk allowed vlan all

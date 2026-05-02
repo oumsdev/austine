@@ -1,0 +1,26 @@
+Les demandes DHCP  se font en broadcast. Donc bloqué par le routeur. 
+DISCOVER 
+OFFER 
+REQUEST 
+ACK 
+Il faut autoriser le routeur à envoyer le broadcast Discover qu’il reçoit sur son interface Fa0/1 en 
+unicast vers le serveur dhcp 192.168.1.2 
+Sur le routeur CISCO 
+Interface fa0/1 
+Ip helper-address 192.168.1.2 
+ACTIVER LE SERVICE DHCP SUR UN ROUTEUR CISCO  
+Exemple de syntaxe  
+Router>ena 
+Router#configure terminal 
+!!ON DONNE UN NOM A NOTRE ETENDU 
+Router(config)#ip dhcp pool CLIENT_LAN 
+!!CREATION DE L ETENDU 192.168.0.0/24 
+Router(dhcp-config)#network 192.168.0.0 255.255.255.0 
+!!AJOUTER LE SERVEUR DNS POUR LES CLIENTS 
+Router(dhcp-config)#dns-server 8.8.8.8 
+!!AJOUTER LA GATEWAY POUR LES CLIENTS 
+Router(dhcp-config)#default-router 192.168.0.1 
+Pour l'exclusion d'adresse, nous pouvons quitter le mode actuel pour retourner en mode 
+configuration, on va par exemple ici exclure les adresses de 192.168.0.240 à 192.168.0.250 : 
+Router(dhcp-config)#exit 
+Router(config)#ip dhcp excluded-address 192.168.0.240 192.168.0.250 

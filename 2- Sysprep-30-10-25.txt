@@ -1,0 +1,10 @@
+C:\Windows\System32\Sysprep 
+%windir%\System32\Sysprep
+
+Sysprep sert a retirer à la machine tout se qu'il lui est prope
+ 
+
+protocole LDAP
+
+
+https://www.it-connect.fr/effectuer-sysprep-windows-11-24h2/?fbclid=IwY2xjawO3zNNleHRuA2FlbQIxMABzcnRjBmFwcF9pZBAyMjIwMzkxNzg4MjAwODkyAAEeJ-UXNCocD3Q5kkrh7odh51sOD6flItpgxzxO-UWotKLNTaggWFyPICqeFJ4_aem_voB56RR6l_RjO2O-5lx8kQ

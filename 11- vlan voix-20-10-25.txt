@@ -1,0 +1,61 @@
+SUR LE SWITCH 
+enable 
+conf t 
+vlan 10 
+name data 
+vlan 20 
+name voice 
+interface g0/1 
+switchport mode trunk 
+switchport trunk allowed vlan all 
+exit 
+interface range fa0/1 - 24 
+switchport mode access 
+switchport access vlan 10 
+switchport voice vlan 20 
+ 
+
+SUR LE ROUTEUR 
+!!CONFIGURATION DE MES INTERFACES 
+enable 
+conf t 
+interface fa0/0 
+no shut 
+interface fa0/0.10 
+encap dot1q 10 
+ip address 192.168.10.254 255.255.255.0 
+interface fa0/0.20 
+encap dot1q 20 
+ip address 192.168.20.254 255.255.255.0 
+EXIT 
+IP DHCP POOL etendue_telephone 
+network 192.168.20.0 255.255.255.0 
+default-router 192.168.20.254 
+option 150 ip 192.168.20.254 
+!!--DEBUT FACULTATIF SI VOUS VOULEZ AJOUTER LE SERVICE DHCP POUR LES PC 
+IP DHCP POOL etendue_PC 
+network 192.168.10.0 255.255.255.0 
+default-router 192.168.10.254 
+!!--FIN FACULTATIF-- 
+ 
+en 
+conf t 
+telephony-service 
+!!NOMBRE MAX DE TELEPHONE 
+max-ephones 42 
+!!NOMBRE MAX DE NUMERO DE TELEPHONE 
+max-dn 42 
+!!ADRESSE DU SERVEUR DE TELEPHONIE ET SON PORT TCP 
+ip source-address 192.168.20.254 port 2000 
+!!AUTORISER ASSIGNATION AUTOMATIQUE DES NUMERO DE TELEPHONE 
+auto assign 1 to 42 
+exit 
+ 
+!!ENTRER LA CONFIGURATION DU PREMIER DE TELEPHONE 
+ephone-dn 1 
+!!ENTRER LE NUMERO INTERNE DU PREMIER DE TELEPHONE 
+number 101 
+!!ENTRER LA CONFIGURATION DU DEUXIEME DE TELEPHONE 
+ephone-dn 2 
+!!ENTRER LE NUMERO INTERNE DU DEUXIEME DE TELEPHONE 
+number 102

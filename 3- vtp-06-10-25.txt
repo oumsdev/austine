@@ -1,0 +1,27 @@
+VTP – VLAN TRUNKING PROTOCOLE  
+Permert de gerer les VLANs
+Pre-requis : trunker les liaisons entre les switchs 
+Passer le switch cœur en mode vtp server et les autres en mode vtp client 
+Sur le Switch Server 
+Enable 
+Conf t 
+Vtp mode server 
+Vtp domain tssr 
+Vtp password cisco 
+Sur les Switch client 
+Enable 
+Conf t 
+Vtp mode client 
+Vtp domain tssr
+Vtp password cisco
+Ensuite on va sur le switch server, on déclare ses vlan 
+Enable 
+Conf t 
+Vlan 100 
+Name Wifi 
+Vlan 101 
+Name serveur 
+Vlan 102 
+Name pc 
+Vlan 103 
+Name gestion

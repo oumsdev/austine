@@ -1,0 +1,10 @@
+Un fichier de réponse est un fichier XML utilisé pour automatiser et personnaliser les étapes de l'installation de Windows. Ce fichier nommé unattend.xml ou autounattend.xml contient une série d’instructions permettant de répondre automatiquement aux différentes invites du programme d'installation (choix de la langue, partitionnement du disque, paramètres réseau, etc.)... Et, il peut aller encore plus loin grâce à l'exécution de scripts personnalisés.
+
+Ce type de fichier est utile dans les contextes suivants :
+
+Déploiement d’un parc informatique en entreprise (même si on pourra y préférer des outils plus performants comme MDT, WAPT, etc.)
+Création de machines virtuelles préconfigurées
+Automatisation de tests sur différents environnements Windows
+
+
+https://www.it-connect.fr/windows-11-personnaliser-installation-avec-fichier-de-reponse/

@@ -1,0 +1,94 @@
+ROUTAGE EIGRP 
+!!Sur R1 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 200.158.1.0 
+Network 100.15.1.28 0.0.0.3 
+!!Sur R2 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 179.58.0.0 
+Network 100.15.1.28 0.0.0.3 
+!!Sur R3 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 179.58.0.0 
+Network 64.0.0.0 0.0.0.3 
+Network 25.0.0.0 0.0.0.3 
+!!Sur R4 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 64.0.0.0 0.0.0.3 
+Network 193.15.15.0 
+!!Sur R5 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 193.15.15.0 
+Network 100.55.0.0 0.0.0.3 
+!!Sur R6 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 100.55.0.0 0.0.0.3 
+Network 200.18.100.0 
+Network 200.18.99.0 
+Network 8.0.0.0 
+!!Sur R7 
+Enable 
+Conf t  
+Router eigrp 92 
+No auto-summary 
+Network 25.0.0.0 0.0.0.3 
+Network 200.18.100.0 
+++++++++++++++++++++++++++++++++++++++++ 
+Sur Routeur  192.168.1.254/10.10.10.5 
+Enable 
+Conf t 
+Interface fa0/0 
+Ip address 192.168.1.254 255.255.255.0 
+No shutdown 
+Interface se0/0/0 
+Ip address 10.10.10.5 255.255.255.252 
+No shutdown 
+Clock rate 4000000 
+Sur Routeur  192.168.2.254/10.10.10.6 
+Enable 
+Conf t 
+Interface fa0/0 
+Ip address 192.168.2.254 255.255.255.0 
+No shutdown 
+Interface se0/0/0 
+Ip address 10.10.10.6 255.255.255.252 
+No shutdown 
+ON AJOUTE LE ROUTAGE STATIQUE 
+!!!Sur Routeur  192.168.1.254/10.10.10.5 
+enable 
+conf t 
+ip route 192.168.2.0 255.255.255.0 10.10.10.6 
+!!!Sur Routeur  192.168.2.254/10.10.10.6 
+enable 
+conf t 
+ip route 192.168.1.0 255.255.255.0 10.10.10.5
+
+
+EIGRP  = DISTANCE ADMINISTRATIVE 90 
+Enable 
+Conf t 
+Router EIGRP 55 
+No auto-summary 
+Network x.x.x.x 
+Network y.y.y.y Z.Z.Z.Z 
+Les réseaux x.x.x.x et y.y.y.y sont les réseaux connectés au routeur 
+55 est un exemple de Numéro  Système Autonome 
+Z.Z.Z.Z est le masque Générique (wildcard mask) a ajouter uniquement si le masque est diffèrent de la classe

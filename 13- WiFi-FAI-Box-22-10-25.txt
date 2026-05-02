@@ -1,0 +1,88 @@
+TP BOX 
+Sur Routeur Orange 
+Enable 
+Conf t 
+Hostname Orange 
+Int loopback0 
+Ip address 8.8.8.8 255.0.0.0 
+No shut 
+Int fa0/0 
+Ip address 22.22.22.1 255.255.255.0 
+No shut 
+Exit 
+Ip dhcp pool entendu-box 
+Network 22.22.22.0 255.255.255.0 
+Default-router 22.22.22.1 
+
+
+
+
+Sur FAI2 
+ 
+enable 
+conf t 
+hostname FAI2 
+no ip domain-lookup 
+ 
+interface g0/0/0 
+ip address 8.255.255.254 255.0.0.0 
+no shut 
+ 
+interface g0/0/1 
+ip address 52.255.255.254 255.0.0.0 
+no shut 
+ 
+interface g0/0/2 
+ip address 142.250.255.254 255.255.0.0 
+no shut 
+ 
+interface se0/1/0 
+ip address 190.20.10.1 255.255.255.252 
+clock rate 4000000 
+no shut 
+ 
+ip route 0.0.0.0 0.0.0.0 190.20.10.2 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Sur FAI01 
+ 
+ENABLE 
+CONF T 
+HOSTNAME FAI1 
+NO IP DOMAIN-LOOKUP 
+ 
+!Interface vers FAI2 
+interface se0/1/0 
+Description vers FAI 2 
+ip address 190.20.10.2 255.255.255.252 
+no shut 
+ 
+ 
+INTERFACE G0/0/0 
+Description vers BOX1 
+IP ADDRESS 201.201.201.254 255.255.255.0 
+NO SHUT 
+ 
+INTERFACE G0/0/1 
+Description vers BOX2 
+IP ADDRESS 202.202.202.254 255.255.255.0 
+NO SHUT 
+ 
+IP ROUTE 0.0.0.0 0.0.0.0 190.20.10.1 
+ 
+ip dhcp pool BOX1  
+network 201.201.201.0 255.255.255.0  
+dns-server 8.8.8.8  
+default-router 201.201.201.254  
+ 
+ 
+ip dhcp pool BOX2  
+network 202.202.202.0 255.255.255.0  
+dns-server 8.8.8.8  
+default-router 202.202.202.254
